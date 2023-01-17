@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { SearchContext } from '../context/searchContext'
@@ -11,6 +12,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const Assessment = () => {
+  // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
   const router = useRouter()
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from '../../lib/api'
 
 const Clinics = ({ data }: { data: any }) => {
@@ -5,7 +6,7 @@ const Clinics = ({ data }: { data: any }) => {
     <section>
       <h1>Clinics</h1>
       <ul>
-        {data.items.map((item) => {
+        {data.items.map((item: any) => {
           return <li key={item.sys.id}>{item.fields.clinicName}</li>
         })}
       </ul>

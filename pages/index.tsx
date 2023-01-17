@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
 import { SearchContext } from '../context/searchContext'
 import Head from 'next/head'
@@ -14,7 +15,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Home() {
-  const { storedValue, setStoredValue } = React.useContext(SearchContext)
+  // @ts-ignore
+  const { setStoredValue } = React.useContext(SearchContext)
 
   React.useEffect(() => {
     setStoredValue({

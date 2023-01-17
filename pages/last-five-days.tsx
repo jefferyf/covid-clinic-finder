@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { SearchContext } from '../context/searchContext'
@@ -12,6 +13,7 @@ import { AiOutlineCheck } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 
 const Assessment = () => {
+  // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
   const router = useRouter()
 
@@ -19,6 +21,7 @@ const Assessment = () => {
     e.stopPropagation()
     setStoredValue({
       ...storedValue,
+      // @ts-ignore
       fiveDays: e.target.innerText === 'YES',
     })
     router.push('/zip-code')

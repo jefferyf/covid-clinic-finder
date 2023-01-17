@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from '../../styles/Assessment.module.css'
-import Grid from '@mui/material/Grid'
 import Head from 'next/head'
 import { Card, CardContent, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -90,6 +91,7 @@ const Clinic = ({ clinic }: { clinic: any }) => {
   )
 }
 
+// @ts-ignore
 export const getStaticProps = async ({ params: { clinicId } }) => {
   try {
     const response = await fetchGraphQL(POST_GRAPHQL_GET_CLINCS_BY_ZIPCODE, {

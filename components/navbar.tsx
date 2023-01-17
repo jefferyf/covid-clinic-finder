@@ -8,13 +8,13 @@ import {
   TopAppBarFixedAdjust,
   TopAppBarNavigationIcon,
   TopAppBarActionItem,
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerSubtitle,
-  DrawerTitle,
-  List,
-  ListItem,
+  // Drawer,
+  // DrawerContent,
+  // DrawerHeader,
+  // DrawerSubtitle,
+  // DrawerTitle,
+  // List,
+  // ListItem,
 } from 'rmwc'
 import '@material/top-app-bar/dist/mdc.top-app-bar.css'
 import '@material/icon-button/dist/mdc.icon-button.css'
@@ -58,7 +58,7 @@ const Navbar = () => {
       </TopAppBar>
       <TopAppBarFixedAdjust />
 
-      <Drawer dismissible open={open} onClose={toggleDrawer(false)}>
+      {/* <Drawer dismissible open={open} onClose={toggleDrawer(false)}>
         <DrawerHeader>
           <DrawerTitle>DrawerHeader</DrawerTitle>
           <DrawerSubtitle>Subtitle</DrawerSubtitle>
@@ -79,7 +79,7 @@ const Navbar = () => {
             </ListItem>
           </List>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
     </>
   )
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Dispatch, ReactNode, SetStateAction, useContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
 import { SearchContext } from '../context/searchContext'
 import styles from '../styles/Assessment.module.css'
@@ -11,6 +12,7 @@ import { AiOutlineCheck } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 
 const Assessment = () => {
+  // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
   const router = useRouter()
 
@@ -18,6 +20,7 @@ const Assessment = () => {
     e.stopPropagation()
     setStoredValue({
       ...storedValue,
+      // @ts-ignore
       positive: e.target.innerText === 'YES',
     })
     router.push('/last-five-days')

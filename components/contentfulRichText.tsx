@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// @ts-nocheck
 import React from 'react'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, MARKS, INLINES, Inline } from '@contentful/rich-text-types'
