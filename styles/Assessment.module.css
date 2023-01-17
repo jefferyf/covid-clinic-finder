@@ -1,0 +1,22 @@
+.container {
+  padding: 2rem 4rem;
+  background-color: #f3de00;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.assessmentCard {
+  background-color: #472b77;
+  color: white;
+  border-radius: 20px;
+  /* min-height: 20rem; */
+  padding: 2rem;
+}
+
+.answerButton,
+.answerButton:hover {
+  background-color: white;
+  color: #472b77;
+}
