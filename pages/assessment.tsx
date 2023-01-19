@@ -50,7 +50,10 @@ const Assessment = () => {
               </Link>
             </Card>
 
-            <Card className={'assessmentCard'}>
+            <Card
+              className={'assessmentCard'}
+              sx={{ backgroundColor: '#472b77' }}
+            >
               <CardContent>
                 <Grid
                   container

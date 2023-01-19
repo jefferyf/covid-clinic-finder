@@ -21,6 +21,7 @@ const Assessment = () => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e)
     setStoredValue({
       ...storedValue,
       zipCode: e.target.value,
@@ -52,7 +53,10 @@ const Assessment = () => {
               </Link>
             </Card>
 
-            <Card className={'assessmentCard'}>
+            <Card
+              className={'assessmentCard'}
+              sx={{ backgroundColor: '#472b77' }}
+            >
               <CardContent>
                 <Grid
                   container

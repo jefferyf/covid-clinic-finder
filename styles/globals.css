@@ -45,13 +45,22 @@ a {
   margin-right: auto;
 }
 
-.answerButton,
+.answerButton {
+  background-color: white;
+  color: #472b77;
+}
+
 .answerButton:hover {
   background-color: white;
   color: #472b77;
 }
 
-.clickHere,
+.clickHere {
+  background-color: #472b77;
+  color: white;
+  float: right;
+}
+
 .clickHere:hover {
   background-color: #472b77;
   float: right;

@@ -41,7 +41,10 @@ const Clinic = ({ clinic }: { clinic: any }) => {
               </Link>
             </Card>
 
-            <Card className={'assessmentCard'}>
+            <Card
+              className={'assessmentCard'}
+              sx={{ backgroundColor: '#472b77' }}
+            >
               {clinic ? (
                 <CardContent>
                   <Typography variant="h3" component={'div'}>
@@ -77,7 +80,7 @@ const Clinic = ({ clinic }: { clinic: any }) => {
                       lat: clinic.clinicLocation?.lat,
                       lng: clinic.clinicLocation?.lon,
                     }}
-                    zoomLevel={11}
+                    zoomLevel={12}
                     name={clinic.clinicName}
                   />
                 </CardContent>
