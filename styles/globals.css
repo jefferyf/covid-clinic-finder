@@ -17,14 +17,44 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.container {
+  padding: 2rem 4rem;
+  background-color: #f3de00;
+}
+
+.main {
+  min-height: 100vh;
+}
+
+.assessmentCard {
+  background-color: #472b77;
+  color: white;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.roundedIcon {
+  background-color: white;
+  color: #472b77;
+  border: 1px solid white;
+  border-width: 8px;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.answerButton,
+.answerButton:hover {
+  background-color: white;
+  color: #472b77;
+}
+
+.clickHere,
+.clickHere:hover {
+  background-color: #472b77;
+  float: right;
 }
 
 .map-h2 {

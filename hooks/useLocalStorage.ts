@@ -17,7 +17,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         const parsed = JSON.parse(value) as T
         setStoredValue(parsed)
       } catch (error) {
-        console.log(error)
+        console.warn(error)
         setStoredValue(initialValue)
       }
     } else {

@@ -3,8 +3,10 @@ import React from 'react'
 import GoogleMapReact from 'google-map-react'
 import { SiGooglemaps } from 'react-icons/si'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleMarkerClick = (e: React.MouseEvent<SVGElement>) => {
-  console.log(e)
+  // console.log(e)
+  return
 }
 
 const handleMouseEnter = (e: React.MouseEvent<SVGElement>) => {

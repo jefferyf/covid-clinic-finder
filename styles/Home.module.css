@@ -1,12 +1,3 @@
-.container {
-  padding: 2rem;
-  background-color: #f3de00;
-}
-
-.main {
-  min-height: 100vh;
-}
-
 .centeredCard {
   flex: 1;
   display: flex;
@@ -14,22 +5,4 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-}
-
-.clickHere,
-.clickHere:hover {
-  background-color: #472b77;
-  float: right;
-}
-
-.roundedIcon {
-  background-color: white;
-  color: #472b77;
-  border: 1px solid white;
-  border-width: 8px;
-  border-radius: 50%;
-  height: 70px;
-  width: 70px;
-  margin-left: auto;
-  margin-right: auto;
 }
