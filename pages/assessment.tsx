@@ -62,7 +62,7 @@ const Assessment = () => {
                     <img src="/pattern.png" alt="pattern" width="102"></img>
                   </Grid>
                   <Grid item xs={10} sx={{ padding: '2rem' }}>
-                    <pre>{JSON.stringify(storedValue)}</pre>
+                    {/* <pre>{JSON.stringify(storedValue)}</pre> */}
 
                     <Typography variant="h2" component="div">
                       Welcome

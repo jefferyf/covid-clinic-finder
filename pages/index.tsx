@@ -24,7 +24,7 @@ export default function Home() {
       fiveDays: undefined,
       zipCode: '',
     })
-  }, [])
+  }, [setStoredValue])
 
   return (
     <div className={styles.container}>
