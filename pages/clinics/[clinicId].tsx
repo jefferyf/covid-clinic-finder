@@ -43,7 +43,7 @@ const Clinic = ({ clinic }: { clinic: any }) => {
 
             <Card
               className={'assessmentCard'}
-              sx={{ backgroundColor: '#472b77' }}
+              sx={{ backgroundColor: '#472b77', color: 'white' }}
             >
               {clinic ? (
                 <CardContent>

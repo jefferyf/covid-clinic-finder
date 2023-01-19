@@ -53,7 +53,12 @@ const Assessment = () => {
 
             <Card
               className={'assessmentCard'}
-              sx={{ backgroundColor: '#472b77' }}
+              sx={{
+                backgroundColor: '#472b77',
+                color: 'white',
+                borderRadius: '20px',
+                padding: '2rem',
+              }}
             >
               <CardContent>
                 <Grid
@@ -73,8 +78,18 @@ const Assessment = () => {
 
                     <Button
                       variant="contained"
-                      className={'answerButton'}
-                      sx={{ marginRight: '10px' }}
+                      sx={[
+                        {
+                          '&:hover': {
+                            backgroundColor: '#EEE',
+                          },
+                        },
+                        {
+                          marginRight: '10px',
+                          color: '#472b77',
+                          backgroundColor: '#FFF',
+                        },
+                      ]}
                       onClick={handleClick}
                       startIcon={
                         storedValue?.fiveDays ? <AiOutlineCheck /> : null
@@ -84,7 +99,17 @@ const Assessment = () => {
                     </Button>
                     <Button
                       variant="contained"
-                      className={'answerButton'}
+                      sx={[
+                        {
+                          '&:hover': {
+                            backgroundColor: '#EEE',
+                          },
+                        },
+                        {
+                          color: '#472b77',
+                          backgroundColor: '#FFF',
+                        },
+                      ]}
                       onClick={handleClick}
                       startIcon={
                         storedValue?.fiveDays === false ? (

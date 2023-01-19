@@ -9,6 +9,7 @@ import { Button, Card, CardContent, Typography } from '@mui/material'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { VscLoading } from 'react-icons/vsc'
 
 const Assessment = () => {
   // @ts-ignore
@@ -55,7 +56,12 @@ const Assessment = () => {
 
             <Card
               className={'assessmentCard'}
-              sx={{ backgroundColor: '#472b77' }}
+              sx={{
+                backgroundColor: '#472b77',
+                color: 'white',
+                borderRadius: '20px',
+                padding: '2rem',
+              }}
             >
               <CardContent>
                 <Grid
@@ -83,8 +89,21 @@ const Assessment = () => {
 
                     <Button
                       variant="contained"
-                      className={'answerButton'}
+                      sx={[
+                        {
+                          '&:hover': {
+                            backgroundColor: '#EEE',
+                          },
+                        },
+                        {
+                          marginTop: '20px',
+                          marginRight: '10px',
+                          color: '#472b77',
+                          backgroundColor: '#FFF',
+                        },
+                      ]}
                       onClick={handleClick}
+                      startIcon={storedValue?.zipCode ? <VscLoading /> : null}
                     >
                       Enter
                     </Button>
