@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
-import { SearchContext } from '../context/searchContext'
 import Head from 'next/head'
 import '@material/layout-grid/dist/mdc.layout-grid.css'
 import Grid from '@mui/material/Grid'
@@ -13,17 +12,16 @@ import { MdOutlineArticle } from 'react-icons/md'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Home() {
-  // @ts-ignore
-  const { setStoredValue } = React.useContext(SearchContext)
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+import { deepPurple } from '@mui/material/colors'
+
+const purpleTheme = createTheme({ palette: { primary: { main: '#472b77' } } })
+
+export default function Home() {
   React.useEffect(() => {
-    setStoredValue({
-      positive: undefined,
-      fiveDays: undefined,
-      zipCode: '',
-    })
-  }, [setStoredValue])
+    window.localStorage.clear()
+  }, [])
 
   return (
     <div className={'container'}>
@@ -98,9 +96,13 @@ export default function Home() {
                 <Grid xs={7} item></Grid>
                 <Grid xs={5} item>
                   <Button
+                    sx={{
+                      backgroundColor: '#472b77',
+                      '&:hover': { backgroundColor: deepPurple[700] },
+                    }}
                     variant="contained"
                     href="/assessment"
-                    className={'clickHere'}
+                    className="clickHere"
                   >
                     Click Here
                   </Button>

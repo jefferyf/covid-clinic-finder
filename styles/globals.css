@@ -47,22 +47,16 @@ a {
 
 .answerButton {
   background-color: white;
-  color: #472b77;
+  color: #472b77 !important;
 }
 
 .answerButton:hover {
   background-color: white;
-  color: #472b77;
+  color: #472b77 !important;
 }
 
 .clickHere {
-  background-color: #472b77;
   color: white;
-  float: right;
-}
-
-.clickHere:hover {
-  background-color: #472b77;
   float: right;
 }
 
