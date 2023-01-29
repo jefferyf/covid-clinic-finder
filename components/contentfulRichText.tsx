@@ -4,6 +4,7 @@
 import React from 'react'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, MARKS, INLINES, Inline } from '@contentful/rich-text-types'
+import { Typography } from '@mui/material'
 
 const defaultInline = (type, node) => {
   return `type: ${node.nodeType} id: ${node.data.target.sys.id}`
@@ -17,12 +18,34 @@ const options = {
     [MARKS.CODE]: (text, key) => <code key={key}>{text}</code>,
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => <p className="p-2">{children}</p>,
-    [BLOCKS.HEADING_1]: (node, children) => <h1>{children}</h1>,
-    [BLOCKS.HEADING_2]: (node, children) => <h2>{children}</h2>,
-    [BLOCKS.HEADING_3]: (node, children) => <h3>{children}</h3>,
-    [BLOCKS.HEADING_4]: (node, children) => <h4>{children}</h4>,
-    [BLOCKS.HEADING_5]: (node, children) => <h5>{children}</h5>,
+    [BLOCKS.PARAGRAPH]: (node, children) => (
+      <Typography variant="body2">{children}</Typography>
+    ),
+    [BLOCKS.HEADING_1]: (node, children) => (
+      <Typography variant="h1" component="div">
+        {children}
+      </Typography>
+    ),
+    [BLOCKS.HEADING_2]: (node, children) => (
+      <Typography variant="h2" component="div">
+        {children}
+      </Typography>
+    ),
+    [BLOCKS.HEADING_3]: (node, children) => (
+      <Typography variant="h3" component="div">
+        {children}
+      </Typography>
+    ),
+    [BLOCKS.HEADING_4]: (node, children) => (
+      <Typography variant="h4" component="div">
+        {children}
+      </Typography>
+    ),
+    [BLOCKS.HEADING_5]: (node, children) => (
+      <Typography variant="h5" component="div">
+        {children}
+      </Typography>
+    ),
     [BLOCKS.HEADING_6]: (node, children) => <h6>{children}</h6>,
     [BLOCKS.EMBEDDED_ENTRY]: (node, children) => <div>{children}</div>,
     [BLOCKS.UL_LIST]: (node, children) => <ul>{children}</ul>,

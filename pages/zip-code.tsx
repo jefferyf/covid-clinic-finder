@@ -10,8 +10,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { VscLoading } from 'react-icons/vsc'
+import VerticalPattern from '../components/verticalPattern'
 
-const Assessment = () => {
+const ZipCode = () => {
   // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
   const router = useRouter()
@@ -22,7 +23,6 @@ const Assessment = () => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e)
     setStoredValue({
       ...storedValue,
       zipCode: e.target.value,
@@ -69,11 +69,8 @@ const Assessment = () => {
                   alignContent={'center'}
                   justifyContent={'center'}
                 >
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern"></img>
-                  </Grid>
-                  <Grid item xs={10} sx={{ padding: '2rem' }}>
-                    {/* <pre>{JSON.stringify(storedValue)}</pre> */}
+                  <VerticalPattern />
+                  <Grid item xs={12} sm={12} md={8} sx={{ padding: '2rem' }}>
                     <Typography variant="h4" component="div">
                       Please Enter your Zip Code.
                     </Typography>
@@ -108,9 +105,7 @@ const Assessment = () => {
                       Enter
                     </Button>
                   </Grid>
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern"></img>
-                  </Grid>
+                  <VerticalPattern />
                 </Grid>
               </CardContent>
             </Card>
@@ -147,4 +142,4 @@ const Assessment = () => {
   )
 }
 
-export default Assessment
+export default ZipCode

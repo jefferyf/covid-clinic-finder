@@ -10,8 +10,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import VerticalPattern from '../components/verticalPattern'
 
-const Assessment = () => {
+const LastFiveDays = () => {
   // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
   const router = useRouter()
@@ -66,11 +67,8 @@ const Assessment = () => {
                   alignContent={'center'}
                   justifyContent={'center'}
                 >
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern" width="102"></img>
-                  </Grid>
-                  <Grid item xs={10} sx={{ padding: '2rem' }}>
-                    {/* <pre>{JSON.stringify(storedValue)}</pre> */}
+                  <VerticalPattern />
+                  <Grid item xs={12} sm={12} md={8} sx={{ padding: '2rem' }}>
                     <Typography variant="h4" component="div">
                       Have you tested positive for COVID-19 in the last five
                       days?
@@ -120,9 +118,7 @@ const Assessment = () => {
                       No
                     </Button>
                   </Grid>
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern" width="102"></img>
-                  </Grid>
+                  <VerticalPattern />
                 </Grid>
               </CardContent>
             </Card>
@@ -155,4 +151,4 @@ const Assessment = () => {
   )
 }
 
-export default Assessment
+export default LastFiveDays

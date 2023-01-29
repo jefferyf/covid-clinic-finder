@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
 import { SearchContext } from '../context/searchContext'
@@ -9,6 +10,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import VerticalPattern from '../components/verticalPattern'
 
 const Assessment = () => {
   // @ts-ignore
@@ -56,7 +58,7 @@ const Assessment = () => {
                 backgroundColor: '#472b77',
                 color: 'white',
                 borderRadius: '20px',
-                padding: '2rem',
+                // padding: '2rem',
               }}
             >
               <CardContent>
@@ -65,12 +67,8 @@ const Assessment = () => {
                   alignContent={'center'}
                   justifyContent={'center'}
                 >
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern" width="102"></img>
-                  </Grid>
-                  <Grid item xs={10} sx={{ padding: '2rem' }}>
-                    {/* <pre>{JSON.stringify(storedValue)}</pre> */}
-
+                  <VerticalPattern />
+                  <Grid item xs={12} sm={12} md={8} sx={{ padding: '2rem' }}>
                     <Typography variant="h2" component="div">
                       Welcome
                     </Typography>
@@ -129,9 +127,7 @@ const Assessment = () => {
                       No
                     </Button>
                   </Grid>
-                  <Grid item xs={1}>
-                    <img src="/pattern.png" alt="pattern" width="102"></img>
-                  </Grid>
+                  <VerticalPattern />
                 </Grid>
               </CardContent>
             </Card>

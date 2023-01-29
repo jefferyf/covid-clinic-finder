@@ -28,7 +28,7 @@ export const fetchGraphQL = async (
 
 export const POST_GRAPHQL_GET_CLINCS_BY_ZIPCODE = `
 query GetClinicsByZipCode($zipcode: [String]!) {
-	clinicCollection(where: { zipCodes_contains_all: $zipcode }) {
+	clinicCollection(where: { zipCodes_contains_some: $zipcode }) {
 		items {
 			sys {
 				id
@@ -41,6 +41,15 @@ query GetClinicsByZipCode($zipcode: [String]!) {
 			clinicLocation {
 				lat
 				lon
+			}
+			seo {
+				seoTitle
+				description
+				hidePageFromSearchEnginesNoindex
+				excludeLinksFromSearchRankingsNofollow
+				image {
+					fileName
+				}
 			}
 		}
 	}
