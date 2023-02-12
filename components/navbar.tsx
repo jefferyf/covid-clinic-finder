@@ -4,82 +4,38 @@ import {
   TopAppBar,
   TopAppBarRow,
   TopAppBarSection,
-  TopAppBarTitle,
   TopAppBarFixedAdjust,
-  TopAppBarNavigationIcon,
-  TopAppBarActionItem,
-  // Drawer,
-  // DrawerContent,
-  // DrawerHeader,
-  // DrawerSubtitle,
-  // DrawerTitle,
-  // List,
-  // ListItem,
 } from 'rmwc'
 import '@material/top-app-bar/dist/mdc.top-app-bar.css'
 import '@material/icon-button/dist/mdc.icon-button.css'
 import '@material/ripple/dist/mdc.ripple.css'
 import '@rmwc/icon/icon.css'
 import '@material/drawer/dist/mdc.drawer.css'
+import Link from 'next/link'
 
 const Navbar = () => {
-  const [open, setOpen] = React.useState(false)
-
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return
-      }
-
-      setOpen(open)
-    }
-
   return (
     <>
-      <TopAppBar fixed>
+      <TopAppBar
+        fixed
+        style={{
+          backgroundColor: '#472B74',
+          padding: '1rem',
+          boxShadow: ' 0px 4px 30px rgba(0, 0, 0, 0.25)',
+        }}
+      >
         <TopAppBarRow>
           <TopAppBarSection alignStart>
-            <TopAppBarNavigationIcon
-              icon="menu"
-              onClick={toggleDrawer(!open)}
-            />
-            <TopAppBarTitle>NUNA Clinic Locator</TopAppBarTitle>
+            <Link href="/">
+              <img src="/CDPH Loog.png" alt="California Public Health Logo" />
+            </Link>
           </TopAppBarSection>
           <TopAppBarSection alignEnd>
-            <TopAppBarActionItem icon="favorite" />
-            <TopAppBarActionItem icon="star" />
-            <TopAppBarActionItem icon="mood" />
+            <img src="/beatit.png" alt="Test It logo" />
           </TopAppBarSection>
         </TopAppBarRow>
       </TopAppBar>
       <TopAppBarFixedAdjust />
-
-      {/* <Drawer dismissible open={open} onClose={toggleDrawer(false)}>
-        <DrawerHeader>
-          <DrawerTitle>DrawerHeader</DrawerTitle>
-          <DrawerSubtitle>Subtitle</DrawerSubtitle>
-        </DrawerHeader>
-        <DrawerContent
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <List>
-            <ListItem>
-              <a href="/">Home</a>
-            </ListItem>
-            <ListItem>
-              <a href="/assessment">Assessment</a>
-            </ListItem>
-            <ListItem>
-              <a href="/contact">Contact Us</a>
-            </ListItem>
-          </List>
-        </DrawerContent>
-      </Drawer> */}
     </>
   )
 }

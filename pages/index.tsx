@@ -1,133 +1,102 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
-import Head from 'next/head'
 import '@material/layout-grid/dist/mdc.layout-grid.css'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import '@material/button/dist/mdc.button.css'
-import Card from '@mui/material/Card'
-import { CardContent, Typography, CardMedia } from '@mui/material'
-import { MdOutlineArticle } from 'react-icons/md'
-import Link from 'next/link'
-import Image from 'next/image'
-import { deepPurple } from '@mui/material/colors'
+import { Typography } from '@mui/material'
 import { client } from '../lib/api'
 import ContentfulRichText from '../components/contentfulRichText'
+import { TiDocumentText } from 'react-icons/ti'
+import Seo from '../components/seo'
 
 export default function Home({ homePage }: { homePage: any }) {
   React.useEffect(() => {
     window.localStorage.clear()
   }, [])
 
+  const [embed, setEmbed] = React.useState(undefined)
+  React.useEffect(() => {
+    if (embed === undefined) {
+      setEmbed(homePage.homePageCopy)
+    }
+  }, [embed, homePage.homePageCopy])
+
   return (
     <div className={'container'}>
-      <Head>
-        <title>{homePage?.seoMetadata?.fields?.seoTitle}</title>
-        <meta
-          name="description"
-          content={homePage?.seoMetadata?.fields?.description}
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Seo seoMetadata={homePage?.seoMetadata}></Seo>
 
       <main className="main">
-        <div>
-          <Grid container style={{ minHeight: '100vh' }}>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Card
-                sx={{ boxShadow: '0' }}
-                style={{ backgroundColor: '#f3de00' }}
-              >
-                <Link href="/">
-                  <Image
-                    src="/header.png"
-                    alt="header"
-                    width={568}
-                    height={152}
-                  />
-                </Link>
-              </Card>
-
-              <Card
-                variant="outlined"
-                sx={{
-                  borderRadius: '20px',
-                  backgroundColor: '#472B77',
-                  color: 'white',
-                }}
-              >
-                <CardContent>
-                  <Typography gutterBottom variant="h3" component="div">
-                    {homePage?.headline}
-                  </Typography>
-
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    <Grid xs={1} item></Grid>
-                    <Grid xs={2} item>
-                      <MdOutlineArticle className={'roundedIcon'} />
-                    </Grid>
-                    <Grid xs={9} item sx={{ paddingLeft: '1rem' }}>
-                      <ContentfulRichText richText={homePage.homePageCopy} />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-end"
-                sx={{
-                  margin: '2rem 0',
-                }}
-              >
-                <Grid xs={7} item></Grid>
-                <Grid xs={5} item>
-                  <Button
-                    sx={{
-                      backgroundColor: '#472b77',
-                      '&:hover': { backgroundColor: deepPurple[700] },
-                    }}
-                    variant="contained"
-                    href="/assessment"
-                    className="clickHere"
-                  >
-                    Click Here
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="center"
+          style={{ minHeight: '75vh' }}
+        >
+          <Grid item>
             <Box
-              component={Grid}
-              item
-              md={6}
-              display={{ xs: 'none', sm: 'none', md: 'flex' }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'center',
+              }}
             >
-              <Card
+              <Typography
+                variant="h1"
+                component="div"
                 sx={{
-                  width: '100%',
-                  height: '100%',
-                  border: '0',
-                  boxShadow: '0',
+                  fontWeight: '700',
+                  fontSize: '82px',
+                  lineHeight: '87px',
+                  textAlign: 'center',
                 }}
               >
-                <CardMedia
-                  sx={{ height: '100%', backgroundSize: 'cover' }}
-                  image="/testit.png"
-                  title="header"
-                />
-              </Card>
+                {homePage?.headline}
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'center',
+              }}
+            >
+              <Button
+                className="assessmentStart"
+                variant="contained"
+                startIcon={<TiDocumentText size={'45px'} />}
+                href="/assessment"
+                size="large"
+                style={{
+                  margin: '2rem 0',
+                  padding: '1rem 2rem',
+                }}
+              >
+                <Box>
+                  <Typography variant="body1">See if you qualify</Typography>
+                  <Typography variant="body2">in under 3 minutes</Typography>
+                </Box>
+              </Button>
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                justifyContent: 'center',
+              }}
+            >
+              <Box sx={{ textAlign: 'center', width: '100%', maxWidth: 'sm' }}>
+                {embed ? <ContentfulRichText richText={embed} /> : null}
+              </Box>
             </Box>
           </Grid>
-        </div>
+        </Grid>
       </main>
     </div>
   )
@@ -149,7 +118,7 @@ export const getStaticProps = async () => {
     console.warn(e)
     return {
       props: {
-        clinic: null,
+        homePage: null,
       },
     }
   }

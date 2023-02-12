@@ -2,10 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import Head from 'next/head'
-import { Card, CardContent, Typography } from '@mui/material'
-import Link from 'next/link'
-import Image from 'next/image'
+import { Box, Grid, Typography } from '@mui/material'
 
 import {
   client,
@@ -13,71 +10,48 @@ import {
   POST_GRAPHQL_GET_CLINCS_BY_ZIPCODE,
 } from '../../lib/api'
 import Map from '../../components/map/Map'
-import ContentfulRichText from '../../components/contentfulRichText'
+import Seo from '../../components/seo'
 
 const Clinic = ({ clinic }: { clinic: any }) => {
   return (
     <div className={'container'}>
-      <Head>
-        <title>
-          {clinic?.seo?.seoTitle ??
-            `Nuna Covid Assessment - ${clinic?.clinicName ?? 'Clinic'}`}
-        </title>
-        <meta name="description" content={clinic?.seo?.description} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Seo seoMetadata={clinic?.seo}></Seo>
 
-      <main className={'main'}>
-        <div>
-          <div>
-            <Card
-              sx={{ boxShadow: '0' }}
-              style={{ backgroundColor: '#f3de00' }}
-            >
-              <Link href="/">
-                <Image
-                  src="/header.png"
-                  alt="header"
-                  width={568}
-                  height={152}
-                />
-              </Link>
-            </Card>
-
-            <Card
-              className={'assessmentCard'}
-              sx={{ backgroundColor: '#472b77', color: 'white' }}
+      <Grid
+        container
+        alignItems="start"
+        justifyContent="center"
+        style={{
+          minHeight: '75vh',
+          marginTop: '5rem',
+        }}
+      >
+        <Grid
+          item
+          sx={{
+            width: '100%',
+            maxWidth: 'md',
+            backgroundColor: '#5E3D94',
+            borderRadius: '25px',
+            padding: '2rem',
+          }}
+        >
+          <Box>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              rowGap={4}
             >
               {clinic ? (
-                <CardContent>
+                <Grid item width={'100%'}>
                   <Typography variant="h3" component={'div'}>
                     Thank You!
                   </Typography>
                   <Typography variant="body1">
                     Here is the clinic for your zip code.
                   </Typography>
-
-                  {/* <Grid
-                  container
-                  alignContent={'center'}
-                  justifyContent={'center'}
-                >
-                  <Grid item xs={6}></Grid>
-                  <Grid item xs={6}>
-                    <div style={{ width: '100%', height: '400px' }}>
-                      <Map
-                        location={{
-                          lat: clinic.clinicLocation?.lat,
-                          lng: clinic.clinicLocation?.lon,
-                          address: clinic.clinicName,
-                        }}
-                        zoomLevel={10}
-                      />
-                    </div>
-                  </Grid>
-                </Grid> */}
-
-                  <ContentfulRichText richText={clinic.clinicDetails.json} />
                   <Map
                     location={{
                       lat: clinic.clinicLocation?.lat,
@@ -86,9 +60,9 @@ const Clinic = ({ clinic }: { clinic: any }) => {
                     zoomLevel={12}
                     name={clinic.clinicName}
                   />
-                </CardContent>
+                </Grid>
               ) : (
-                <CardContent>
+                <Grid item>
                   <Typography variant="h3" component={'div'}>
                     Thank You!
                   </Typography>
@@ -96,12 +70,12 @@ const Clinic = ({ clinic }: { clinic: any }) => {
                     We Could not find a clinic for this zip code. Please call us
                     at ....
                   </Typography>
-                </CardContent>
+                </Grid>
               )}
-            </Card>
-          </div>
-        </div>
-      </main>
+            </Grid>
+          </Box>
+        </Grid>
+      </Grid>
     </div>
   )
 }

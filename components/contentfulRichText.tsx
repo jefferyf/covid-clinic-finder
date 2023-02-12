@@ -62,6 +62,33 @@ const options = {
     [INLINES.HYPERLINK]: (node, children) => (
       <a href={node.data.uri}>{children}</a>
     ),
+    [INLINES.HYPERLINK]: (node, children) => {
+      // Only process youtube links
+      if (node.data.uri.includes('youtube.com')) {
+        // Extract videoId from the URL
+        const match =
+          /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/.exec(
+            node.data.uri
+          )
+        const videoId = match && match[7].length === 11 ? match[7] : null
+        return videoId ? (
+          <section className="video-container">
+            <iframe
+              className="video"
+              width={'664'}
+              height={'375'}
+              title={`https://youtube.com/embed/${videoId}`}
+              src={`https://youtube.com/embed/${videoId}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              frameBorder={0}
+            />
+          </section>
+        ) : null
+      } else {
+        return <a href={node.data.uri}>{children}</a>
+      }
+    },
   },
 }
 
