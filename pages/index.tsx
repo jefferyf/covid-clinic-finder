@@ -33,7 +33,14 @@ export default function Home({ homePage }: { homePage: any }) {
           container
           alignItems="center"
           justifyContent="center"
-          style={{ minHeight: '75vh' }}
+          sx={[
+            {
+              '@media (min-width:600px)': {
+                marginTop: '3rem',
+              },
+            },
+            { minHeight: '75vh' },
+          ]}
         >
           <Grid item>
             <Box
@@ -47,12 +54,20 @@ export default function Home({ homePage }: { homePage: any }) {
               <Typography
                 variant="h1"
                 component="div"
-                sx={{
-                  fontWeight: '700',
-                  fontSize: '82px',
-                  lineHeight: '87px',
-                  textAlign: 'center',
-                }}
+                sx={[
+                  {
+                    '@media (max-width:600px)': {
+                      fontSize: '42px',
+                      lineHeight: '47px',
+                    },
+                  },
+                  {
+                    fontWeight: '700',
+                    fontSize: '82px',
+                    lineHeight: '87px',
+                    textAlign: 'center',
+                  },
+                ]}
               >
                 {homePage?.headline}
               </Typography>
@@ -72,12 +87,20 @@ export default function Home({ homePage }: { homePage: any }) {
                 startIcon={<TiDocumentText size={'45px'} />}
                 href="/assessment"
                 size="large"
-                style={{
-                  margin: '2rem 0',
-                  padding: '1rem 2rem',
-                }}
+                sx={[
+                  {
+                    '@media (max-width:600px)': {
+                      width: '100%',
+                    },
+                  },
+                  {
+                    margin: '2rem 0',
+                    padding: '2rem',
+                    width: '325px',
+                  },
+                ]}
               >
-                <Box>
+                <Box sx={{ padding: '.5rem' }}>
                   <Typography variant="body1">See if you qualify</Typography>
                   <Typography variant="body2">in under 3 minutes</Typography>
                 </Box>
