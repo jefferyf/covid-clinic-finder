@@ -22,7 +22,7 @@ const Footer = () => {
         >
           <Typography variant="caption" color="#D0BCFF">
             Copyright &copy;{new Date().getFullYear()} |{' '}
-            <Link href={'privacyPolicy'} style={{ color: 'white' }}>
+            <Link href={'/privacy-policy'} style={{ color: 'white' }}>
               Privacy Policy
             </Link>
           </Typography>

@@ -9,7 +9,7 @@ import '@material/button/dist/mdc.button.css'
 import { Typography } from '@mui/material'
 import { client } from '../lib/api'
 import ContentfulRichText from '../components/contentfulRichText'
-import { TiDocumentText } from 'react-icons/ti'
+import { CgLoadbarDoc } from 'react-icons/cg'
 import Seo from '../components/seo'
 
 export default function Home({ homePage }: { homePage: any }) {
@@ -84,7 +84,7 @@ export default function Home({ homePage }: { homePage: any }) {
               <Button
                 className="assessmentStart"
                 variant="contained"
-                startIcon={<TiDocumentText size={'45px'} />}
+                startIcon={<CgLoadbarDoc size={'45px'} />}
                 href="/assessment"
                 size="large"
                 sx={[
@@ -97,12 +97,34 @@ export default function Home({ homePage }: { homePage: any }) {
                     margin: '2rem 0',
                     padding: '2rem',
                     width: '325px',
+                    textTransform: 'none',
                   },
                 ]}
               >
                 <Box sx={{ padding: '.5rem' }}>
-                  <Typography variant="body1">See if you qualify</Typography>
-                  <Typography variant="body2">in under 3 minutes</Typography>
+                  <p
+                    style={{
+                      fontSize: '24px',
+                      fontWeight: '700',
+                      lineHeight: '20px',
+                      letterSpacing: '0.1',
+                      padding: '0',
+                      margin: '3px',
+                    }}
+                  >
+                    See if you qualify
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '17px',
+                      lineHeight: '20px',
+                      fontWeight: '400',
+                      padding: '0',
+                      margin: '3px',
+                    }}
+                  >
+                    in under 3 minutes
+                  </p>
                 </Box>
               </Button>
             </Box>

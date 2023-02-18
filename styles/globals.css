@@ -96,10 +96,14 @@ a {
 }
 
 .container .assessmentStart {
-  background-color: #d25fb4;
+  background-color: #f35ccb;
   border-radius: 50px;
   padding: 0.5rem 1rem;
   min-width: 150px;
+}
+
+.container .assessmentStart:hover {
+  background-color: #f35ccb;
 }
 
 .container .assessmentStart p {
