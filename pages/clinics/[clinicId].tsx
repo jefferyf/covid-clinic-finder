@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Box, Grid, Typography } from '@mui/material'
@@ -11,8 +10,10 @@ import {
 } from '../../lib/api'
 import Map from '../../components/map/Map'
 import Seo from '../../components/seo'
+import { IClinicFields } from '../../@types/generated/contentful'
+import { Entry, EntryCollection } from 'contentful'
 
-const Clinic = ({ clinic }: { clinic: any }) => {
+const Clinic = ({ clinic }: { clinic: IClinicFields }) => {
   return (
     <div className={'container'}>
       <Seo seoMetadata={clinic?.seo}></Seo>
@@ -103,12 +104,12 @@ export const getStaticProps = async ({ params: { clinicId } }) => {
 }
 
 export const getStaticPaths = async () => {
-  const clinics = await client
+  const clinics: Entry<IClinicFields>[] = await client
     .getEntries({ content_type: 'clinic' })
-    .then((response: any) => response.items)
+    .then((response: EntryCollection<IClinicFields>) => response.items)
 
   const clinicZipCodes = clinics
-    .map(function (clinic: any) {
+    .map((clinic: Entry<IClinicFields>) => {
       return clinic.fields.zipCodes.map(function (zipCode: string) {
         return zipCode
       })

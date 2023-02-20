@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
 import { Box } from '@mui/material'
 import Grid from '@mui/material/Grid'
@@ -8,12 +6,14 @@ import Seo from '../components/seo'
 import { client } from '../lib/api'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { ParsedUrlQuery } from 'querystring'
+import { IGenericPageFields } from '../@types/generated/contentful'
+import { EntryCollection, Entry } from 'contentful'
 
 interface IParams extends ParsedUrlQuery {
   slug: string
 }
 
-const GenericPage = ({ page }: { page: any }) => {
+const GenericPage = ({ page }: { page: Entry<IGenericPageFields> }) => {
   return (
     <div className={'container'}>
       <main className="main">
@@ -54,7 +54,7 @@ export default GenericPage
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as IParams
 
-  const data = await client.getEntries({
+  const data: EntryCollection<IGenericPageFields> = await client.getEntries({
     content_type: 'genericPage',
     'fields.slug[in]': slug,
   })
@@ -68,11 +68,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const pages = await client
+  const pages: Entry<IGenericPageFields>[] = await client
     .getEntries({ content_type: 'genericPage' })
-    .then((response: any) => response.items)
+    .then((response: EntryCollection<IGenericPageFields>) => response.items)
 
-  const paths = pages.map((page: any) => ({
+  const paths = pages.map((page: Entry<IGenericPageFields>) => ({
     params: {
       slug: page.fields.slug,
     },

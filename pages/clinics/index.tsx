@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Button, Grid } from '@mui/material'
 import ContentfulRichText from '../../components/contentfulRichText'
 import Seo from '../../components/seo'
@@ -9,16 +8,18 @@ import React from 'react'
 import { getDistance } from 'geolib'
 import { ImMobile2 } from 'react-icons/im'
 import { GeolibInputCoordinates } from 'geolib/es/types'
-import { IClinicFields } from '../../@types/generated/contentful'
-import { EntryCollection } from 'contentful'
+import {
+  IClinicFields,
+  IGenericPageFields,
+} from '../../@types/generated/contentful'
+import { Entry, EntryCollection } from 'contentful'
 
-const Clinics = ({
-  clinics,
-  pageData,
-}: {
+interface IProps {
   clinics: EntryCollection<IClinicFields>
-  pageData: any
-}) => {
+  pageData: Entry<IGenericPageFields>
+}
+
+const Clinics = ({ clinics, pageData }: IProps) => {
   const [location, setLocation] = React.useState<GeolibInputCoordinates>()
 
   React.useEffect(() => {
@@ -80,7 +81,7 @@ const Clinics = ({
                 <ul
                   style={{ listStyleType: 'none', margin: '0', padding: '0' }}
                 >
-                  {clinics.items.map((item: any) => {
+                  {clinics.items.map((item: Entry<IClinicFields>) => {
                     return (
                       <li
                         key={item.sys.id}
@@ -143,7 +144,9 @@ const Clinics = ({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pageData = await client.getEntry('5HFnHDENvuG8EGiwTDUKdG')
+  const pageData: Entry<IGenericPageFields> = await client.getEntry(
+    '5HFnHDENvuG8EGiwTDUKdG'
+  )
 
   const clinics: EntryCollection<IClinicFields> = await client.getEntries({
     content_type: 'clinic',

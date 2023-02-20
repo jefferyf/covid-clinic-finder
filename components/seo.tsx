@@ -1,8 +1,9 @@
+import { Entry } from 'contentful'
 import Head from 'next/head'
 import React from 'react'
+import { ISeoMetaTagsFields } from '../@types/generated/contentful'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Seo = ({ seoMetadata }: { seoMetadata: any }) => {
+const Seo = ({ seoMetadata }: { seoMetadata: Entry<ISeoMetaTagsFields> }) => {
   const fields = seoMetadata?.fields ?? {}
   return (
     <Head>

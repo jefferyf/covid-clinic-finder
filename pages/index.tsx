@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react'
 import '@material/layout-grid/dist/mdc.layout-grid.css'
@@ -11,8 +10,10 @@ import { client } from '../lib/api'
 import ContentfulRichText from '../components/contentfulRichText'
 import { CgLoadbarDoc } from 'react-icons/cg'
 import Seo from '../components/seo'
+import { IHomePageFields } from '../@types/generated/contentful'
+import { EntryCollection } from 'contentful'
 
-export default function Home({ homePage }: { homePage: any }) {
+export default function Home({ homePage }: { homePage: IHomePageFields }) {
   React.useEffect(() => {
     window.localStorage.clear()
   }, [])
@@ -20,6 +21,7 @@ export default function Home({ homePage }: { homePage: any }) {
   const [embed, setEmbed] = React.useState(undefined)
   React.useEffect(() => {
     if (embed === undefined) {
+      // @ts-ignore
       setEmbed(homePage.homePageCopy)
     }
   }, [embed, homePage.homePageCopy])
@@ -152,7 +154,7 @@ export const getStaticProps = async () => {
   try {
     const response = await client
       .getEntries({ content_type: 'homePage' })
-      .then((response: any) => response.items)
+      .then((response: EntryCollection<IHomePageFields>) => response.items)
 
     return {
       props: {
