@@ -107,12 +107,6 @@ export const getStaticPaths = async () => {
     .getEntries({ content_type: 'clinic' })
     .then((response: any) => response.items)
 
-  // const paths = clinics.map((clinic: any) => ({
-  //   params: {
-  //     clinicId: clinic.sys.id,
-  //   },
-  // }))
-
   const clinicZipCodes = clinics
     .map(function (clinic: any) {
       return clinic.fields.zipCodes.map(function (zipCode: string) {

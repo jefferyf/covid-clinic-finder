@@ -25,6 +25,7 @@
     "contentful-management": "^10.24.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "geolib": "^3.3.3",
     "google-map-react": "^2.2.0",
     "material-icons": "^1.13.1",
     "next": "13.0.6",

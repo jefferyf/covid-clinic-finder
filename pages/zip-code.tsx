@@ -16,7 +16,7 @@ const ZipCode = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    router.push(`/clinics/${storedValue.zipCode}`)
+    router.push(`/clinics?zipcode=${storedValue.zipCode}`)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

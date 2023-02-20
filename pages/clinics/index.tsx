@@ -1,14 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Grid } from '@mui/material'
-import Link from 'next/link'
+import { Box, Button, Grid } from '@mui/material'
+import ContentfulRichText from '../../components/contentfulRichText'
 import Seo from '../../components/seo'
 import { client } from '../../lib/api'
+import { IoMdPin } from 'react-icons/io'
+import { GetStaticProps } from 'next'
+import React from 'react'
+import { getDistance } from 'geolib'
+import { ImMobile2 } from 'react-icons/im'
+import { GeolibInputCoordinates } from 'geolib/es/types'
+import { IClinicFields } from '../../@types/generated/contentful'
+import { EntryCollection } from 'contentful'
 
-const Clinics = ({ data }: { data: any }) => {
+const Clinics = ({
+  clinics,
+  pageData,
+}: {
+  clinics: EntryCollection<IClinicFields>
+  pageData: any
+}) => {
+  const [location, setLocation] = React.useState<GeolibInputCoordinates>()
+
+  React.useEffect(() => {
+    if ('geolocation' in navigator) {
+      // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude, longitude } = coords
+        setLocation({ latitude, longitude })
+      })
+    }
+  }, [])
+
+  const distance = (clinicLocation: GeolibInputCoordinates) => {
+    try {
+      const distance = location ? getDistance(location, clinicLocation) : 0
+
+      return `${(distance * 0.000621371192).toFixed(1)} Miles`
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+
   return (
     <div className={'container'}>
-      <Seo seoMetadata={undefined}></Seo>
-
+      <Seo seoMetadata={pageData?.fields?.seoMetadata}></Seo>
       <Grid
         container
         alignItems="start"
@@ -28,7 +63,7 @@ const Clinics = ({ data }: { data: any }) => {
             padding: '2rem',
           }}
         >
-          <Box>
+          <Box width={'100%'}>
             <Grid
               container
               direction="column"
@@ -37,20 +72,67 @@ const Clinics = ({ data }: { data: any }) => {
               rowGap={4}
             >
               <Grid item>
-                <section>
-                  <h1>Clinics</h1>
-                  <ul>
-                    {data.items.map((item: any) => {
-                      return (
-                        <li key={item.sys.id}>
-                          <Link href={`/clinics/${item.fields.zipCodes[0]}`}>
-                            {item.fields.clinicName}
-                          </Link>
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </section>
+                {pageData ? (
+                  <ContentfulRichText
+                    richText={pageData?.fields?.contentBlock}
+                  ></ContentfulRichText>
+                ) : null}
+                <ul
+                  style={{ listStyleType: 'none', margin: '0', padding: '0' }}
+                >
+                  {clinics.items.map((item: any) => {
+                    return (
+                      <li
+                        key={item.sys.id}
+                        style={{ borderBottom: '1px solid #D0BCFF' }}
+                      >
+                        <Grid container>
+                          <Grid item xs={8}>
+                            <p className="clinicName">
+                              {item.fields.clinicName}
+                            </p>
+                          </Grid>
+                          <Grid item xs={4}>
+                            <span
+                              className="clinicDistance"
+                              style={{ float: 'right' }}
+                            >
+                              {distance({
+                                latitude: item?.fields?.clinicLocation?.lat,
+                                longitude: item?.fields?.clinicLocation?.lon,
+                              })}
+                            </span>
+                          </Grid>
+                        </Grid>
+
+                        <Box>
+                          <ContentfulRichText
+                            richText={item.fields.clinicAddressInformation}
+                          />
+                        </Box>
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          className="clinicDetails"
+                          startIcon={<IoMdPin />}
+                          href={`/clinics/${item.fields.zipCodes[0]}`}
+                        >
+                          Map
+                        </Button>
+                        {item.fields.phoneNumber ? (
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            className="clinicDetails"
+                            startIcon={<ImMobile2 />}
+                          >
+                            {item.fields.phoneNumber}
+                          </Button>
+                        ) : null}
+                      </li>
+                    )
+                  })}
+                </ul>
               </Grid>
             </Grid>
           </Box>
@@ -60,14 +142,15 @@ const Clinics = ({ data }: { data: any }) => {
   )
 }
 
-export const getStaticProps = async () => {
-  const data = await client.getEntries({ content_type: 'clinic' })
-  if (!data.items.length) {
-    throw new Error('This page does not exist.')
-  }
+export const getStaticProps: GetStaticProps = async () => {
+  const pageData = await client.getEntry('5HFnHDENvuG8EGiwTDUKdG')
+
+  const clinics: EntryCollection<IClinicFields> = await client.getEntries({
+    content_type: 'clinic',
+  })
 
   return {
-    props: { data },
+    props: { clinics, pageData },
     revalidate: 10,
   }
 }

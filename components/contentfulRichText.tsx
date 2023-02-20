@@ -10,6 +10,12 @@ const defaultInline = (type, node) => {
   return `type: ${node.nodeType} id: ${node.data.target.sys.id}`
 }
 
+const Text = ({ children }) => (
+  <Typography variant="body2" style={{ whiteSpace: 'pre-line' }}>
+    {children}
+  </Typography>
+)
+
 const options = {
   renderMark: {
     [MARKS.BOLD]: (text, key) => <strong key={key}>{text}</strong>,
@@ -18,9 +24,7 @@ const options = {
     [MARKS.CODE]: (text, key) => <code key={key}>{text}</code>,
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => (
-      <Typography variant="body2">{children}</Typography>
-    ),
+    [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
     [BLOCKS.HEADING_1]: (node, children) => (
       <Typography variant="h1" component="div">
         {children}
