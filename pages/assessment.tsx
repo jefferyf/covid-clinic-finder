@@ -19,7 +19,7 @@ const Assessment = () => {
     setStoredValue({
       ...storedValue,
       // @ts-ignore
-      positive: e.target.innerText === 'YES',
+      positive: e.target.innerText === 'Yes',
     })
     router.push('/last-five-days')
   }

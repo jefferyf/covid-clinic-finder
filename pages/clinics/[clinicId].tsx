@@ -31,7 +31,7 @@ const Clinic = ({ clinic }: { clinic: IClinicFields }) => {
           item
           sx={{
             width: '100%',
-            maxWidth: 'md',
+            maxWidth: 'lg',
             backgroundColor: '#5E3D94',
             borderRadius: '25px',
             padding: '2rem',

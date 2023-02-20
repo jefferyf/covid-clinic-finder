@@ -20,7 +20,7 @@ const LastFiveDays = () => {
     setStoredValue({
       ...storedValue,
       // @ts-ignore
-      fiveDays: e.target.innerText === 'YES',
+      fiveDays: e.target.innerText === 'Yes',
     })
     router.push('/zip-code')
   }
