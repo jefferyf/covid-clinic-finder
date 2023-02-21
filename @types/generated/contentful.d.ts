@@ -7,6 +7,9 @@ export interface IClinicFields {
   /** Clinic Name */
   clinicName: string
 
+  /** Slug */
+  slug: string
+
   /** Phone Number */
   phoneNumber: string
 
@@ -48,7 +51,7 @@ export interface IGenericPageFields {
   pageTitle: string
 
   /** Slug */
-  slug: string
+  slug?: string | undefined
 
   /** Seo Metadata */
   seoMetadata: ISeoMetaTags

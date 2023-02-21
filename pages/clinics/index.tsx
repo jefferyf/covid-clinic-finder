@@ -201,7 +201,7 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                               size="small"
                               className="clinicDetails"
                               startIcon={<IoMdPin />}
-                              href={`/clinics/${item.fields.zipCodes[0]}`}
+                              href={`/clinics/${item.fields.slug}`}
                             >
                               Map
                             </Button>

@@ -167,7 +167,8 @@ p.clinicName {
   .map {
   }
   .google-map {
-    height: 50vh;
+    height: 60vh;
+    min-height: 500px;
   }
 
   .map-h2 {

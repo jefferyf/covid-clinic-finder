@@ -1,22 +1,22 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { Box, Grid, Typography } from '@mui/material'
-
-import {
-  client,
-  fetchGraphQL,
-  POST_GRAPHQL_GET_CLINCS_BY_ZIPCODE,
-} from '../../lib/api'
 import Map from '../../components/map/Map'
 import Seo from '../../components/seo'
 import { IClinicFields } from '../../@types/generated/contentful'
 import { Entry, EntryCollection } from 'contentful'
+import { ParsedUrlQuery } from 'querystring'
+import { client } from '../../lib/api'
+import { GetStaticProps } from 'next'
+import ContentfulRichText from '../../components/contentfulRichText'
 
-const Clinic = ({ clinic }: { clinic: IClinicFields }) => {
+interface IParams extends ParsedUrlQuery {
+  slug: string
+}
+
+const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
   return (
     <div className={'container'}>
-      <Seo seoMetadata={clinic?.seo}></Seo>
+      <Seo seoMetadata={clinic.fields.seo}></Seo>
 
       <Grid
         container
@@ -47,19 +47,19 @@ const Clinic = ({ clinic }: { clinic: IClinicFields }) => {
             >
               {clinic ? (
                 <Grid item width={'100%'}>
-                  <Typography variant="h3" component={'div'}>
-                    Thank You!
+                  <Typography variant="h4" component={'div'}>
+                    {clinic.fields.clinicName}
                   </Typography>
-                  <Typography variant="body1">
-                    Here is the clinic for your zip code.
-                  </Typography>
+                  <ContentfulRichText
+                    richText={clinic.fields.clinicAddressInformation}
+                  />
                   <Map
                     location={{
-                      lat: clinic.clinicLocation?.lat,
-                      lng: clinic.clinicLocation?.lon,
+                      lat: clinic.fields.clinicLocation?.lat,
+                      lng: clinic.fields.clinicLocation?.lon,
                     }}
-                    zoomLevel={12}
-                    name={clinic.clinicName}
+                    zoomLevel={15}
+                    name={clinic.fields.clinicName}
                   />
                 </Grid>
               ) : (
@@ -81,25 +81,19 @@ const Clinic = ({ clinic }: { clinic: IClinicFields }) => {
   )
 }
 
-// @ts-ignore
-export const getStaticProps = async ({ params: { clinicId } }) => {
-  try {
-    const response = await fetchGraphQL(POST_GRAPHQL_GET_CLINCS_BY_ZIPCODE, {
-      zipcode: clinicId,
-    })
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { slug } = context.params as IParams
 
-    return {
-      props: {
-        clinic: response.data.clinicCollection.items[0] ?? null,
-      },
-    }
-  } catch (e) {
-    console.warn(e)
-    return {
-      props: {
-        clinic: null,
-      },
-    }
+  const data: EntryCollection<IClinicFields> = await client.getEntries({
+    content_type: 'clinic',
+    'fields.slug[in]': slug,
+  })
+
+  const clinic = data.items.length ? data.items[0] : undefined
+
+  return {
+    props: { clinic },
+    revalidate: 10,
   }
 }
 
@@ -108,17 +102,9 @@ export const getStaticPaths = async () => {
     .getEntries({ content_type: 'clinic' })
     .then((response: EntryCollection<IClinicFields>) => response.items)
 
-  const clinicZipCodes = clinics
-    .map((clinic: Entry<IClinicFields>) => {
-      return clinic.fields.zipCodes.map(function (zipCode: string) {
-        return zipCode
-      })
-    })
-    .flat()
-
-  const paths = clinicZipCodes.map((zipCode: string) => ({
+  const paths = clinics.map((clinic: Entry<IClinicFields>) => ({
     params: {
-      clinicId: zipCode,
+      clinicId: clinic.fields.slug,
     },
   }))
 
