@@ -16,7 +16,7 @@ interface IParams extends ParsedUrlQuery {
 const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
   return (
     <div className={'container'}>
-      <Seo seoMetadata={clinic.fields.seo}></Seo>
+      <Seo seoMetadata={clinic?.fields?.seo}></Seo>
 
       <Grid
         container
@@ -45,7 +45,7 @@ const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
               alignItems="center"
               rowGap={4}
             >
-              {clinic ? (
+              {clinic && clinic.fields ? (
                 <Grid item width={'100%'}>
                   <Typography variant="h4" component={'div'}>
                     {clinic.fields.clinicName}
