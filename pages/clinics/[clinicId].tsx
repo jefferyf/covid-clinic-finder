@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Grid, Typography } from '@mui/material'
-import Map from '../../components/map/Map'
 import Seo from '../../components/seo'
 import { IClinicFields } from '../../@types/generated/contentful'
 import { Entry, EntryCollection } from 'contentful'
