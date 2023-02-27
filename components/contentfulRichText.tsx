@@ -81,7 +81,7 @@ const options = {
               className="video"
               width={'664'}
               height={'375'}
-              title={`https://youtube.com/embed/${videoId}`}
+              title={`https://youtube.com/embed/${videoId}?controls=0`}
               src={`https://youtube.com/embed/${videoId}`}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

@@ -53,25 +53,10 @@ export default function Home({ homePage }: { homePage: IHomePageFields }) {
                 justifyContent: 'center',
               }}
             >
-              <Typography
-                variant="h1"
-                component="div"
-                sx={[
-                  {
-                    '@media (max-width:600px)': {
-                      fontSize: '42px',
-                      lineHeight: '47px',
-                    },
-                  },
-                  {
-                    fontWeight: '700',
-                    fontSize: '82px',
-                    lineHeight: '87px',
-                    textAlign: 'center',
-                  },
-                ]}
-              >
-                {homePage?.headline}
+              <Typography className="headline" variant="h1" component="div">
+                {homePage?.headlineCopy ? (
+                  <ContentfulRichText richText={homePage.headlineCopy} />
+                ) : null}
               </Typography>
             </Box>
 
@@ -138,7 +123,14 @@ export default function Home({ homePage }: { homePage: IHomePageFields }) {
                 justifyContent: 'center',
               }}
             >
-              <Box sx={{ textAlign: 'center', width: '100%', maxWidth: 'sm' }}>
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  width: '100%',
+                  maxWidth: 'sm',
+                  paddingTop: '2rem',
+                }}
+              >
                 {embed ? <ContentfulRichText richText={embed} /> : null}
               </Box>
             </Box>

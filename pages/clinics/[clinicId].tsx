@@ -10,7 +10,7 @@ import { GetStaticProps } from 'next'
 import ContentfulRichText from '../../components/contentfulRichText'
 
 interface IParams extends ParsedUrlQuery {
-  slug: string
+  clinicId: string
 }
 
 const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
@@ -53,14 +53,14 @@ const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
                   <ContentfulRichText
                     richText={clinic.fields.clinicAddressInformation}
                   />
-                  <Map
-                    location={{
-                      lat: clinic.fields.clinicLocation?.lat,
-                      lng: clinic.fields.clinicLocation?.lon,
-                    }}
-                    zoomLevel={15}
-                    name={clinic.fields.clinicName}
-                  />
+                  <iframe
+                    src={`https://maps.google.com/maps?q=${clinic.fields.clinicLocation?.lat},${clinic.fields.clinicLocation?.lon}&output=embed`}
+                    width="100%"
+                    height="450"
+                    frameBorder="0"
+                    style={{ border: '0' }}
+                    allowFullScreen
+                  ></iframe>
                 </Grid>
               ) : (
                 <Grid item>
@@ -82,11 +82,11 @@ const Clinic = ({ clinic }: { clinic: Entry<IClinicFields> }) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { slug } = context.params as IParams
+  const { clinicId } = context.params as IParams
 
   const data: EntryCollection<IClinicFields> = await client.getEntries({
     content_type: 'clinic',
-    'fields.slug[in]': slug,
+    'fields.slug[in]': clinicId,
   })
 
   const clinic = data.items.length ? data.items[0] : undefined

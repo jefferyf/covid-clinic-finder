@@ -83,14 +83,11 @@ export interface IHomePageFields {
   /** SEO Metadata */
   seoMetadata: ISeoMetaTags
 
-  /** Headline */
-  headline?: string | undefined
+  /** HeadlineCopy */
+  headlineCopy?: Document | undefined
 
   /** Home Page Copy */
   homePageCopy?: Document | undefined
-
-  /** HeadlineCopy */
-  headlineCopy?: Document | undefined
 }
 
 export interface IHomePage extends Entry<IHomePageFields> {

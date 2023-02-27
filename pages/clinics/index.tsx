@@ -139,9 +139,11 @@ const Clinics = ({ clinics, pageData }: IProps) => {
               ) : (
                 <Grid item>
                   {pageData ? (
-                    <ContentfulRichText
-                      richText={pageData?.fields?.contentBlock}
-                    ></ContentfulRichText>
+                    <Box className="clinicInstructions">
+                      <ContentfulRichText
+                        richText={pageData?.fields?.contentBlock}
+                      ></ContentfulRichText>
+                    </Box>
                   ) : null}
                   <ul
                     style={{
@@ -191,7 +193,7 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                               </Grid>
                             </Grid>
 
-                            <Box sx={{ margin: '0.75rem 0' }}>
+                            <Box sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}>
                               <ContentfulRichText
                                 richText={item.fields.clinicAddressInformation}
                               />

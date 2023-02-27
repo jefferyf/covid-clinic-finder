@@ -19,7 +19,7 @@ a {
 
 .container {
   padding: 6rem 4rem;
-  background-image: url('/BG.png');
+  background-image: url('/patternBackground.png');
   background-repeat: repeat;
   background-size: cover;
   background-color: #472b74;
@@ -28,12 +28,31 @@ a {
 
 @media (max-width: 600px) {
   .container {
-    padding: 5rem 4rem;
+    padding: 5rem 2rem;
   }
 }
 
 .main {
   min-height: 100vh;
+}
+
+.headline .MuiTypography-h1 {
+  padding-top: 3rem;
+  font-weight: 700;
+  font-size: 82px;
+  line-height: 87px;
+  text-align: center;
+}
+
+.headline .MuiTypography-h1 strong {
+  color: #e9da07;
+}
+
+@media (max-width: 600px) {
+  .headline .MuiTypography-h1 {
+    font-size: 42px;
+    line-height: 47px;
+  }
 }
 
 .assessmentCard {
@@ -111,6 +130,61 @@ a {
 
 .container .assessmentStart:hover {
   background-color: #f35ccb;
+}
+
+@media (min-width: 0px) and (max-width: 415px) {
+  .container .MuiTypography-h4 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .container .assessmentStart {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 20px;
+    min-width: 100px;
+    padding: 15px 25px;
+  }
+
+  .progressBars div {
+    width: 100%;
+  }
+
+  .questionBox {
+    padding: 0;
+  }
+
+  .container .MuiTypography-body1 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 21px;
+
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  .container .clinicInstructions .MuiTypography-body2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 21px;
+    /* or 124% */
+
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
 }
 
 .container .clinicDetails {

@@ -75,7 +75,7 @@ const Navbar = () => {
                 textDecoration: 'none',
               }}
             >
-              <img src="/beatit.png" alt="Test It logo" />
+              <img src="/Logo.png" alt="Test It logo" />
             </Typography>
           </Box>
 

@@ -57,6 +57,7 @@ const LastFiveDays = () => {
             }}
           >
             <Box
+              className="questionBox"
               sx={{
                 margin: '2rem 0',
                 padding: '2rem',
@@ -71,7 +72,7 @@ const LastFiveDays = () => {
                 columnGap={1.5}
                 sx={{ flexGrow: 1 }}
               >
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Link href="/assessment">
                     <Box
                       sx={{
@@ -82,7 +83,7 @@ const LastFiveDays = () => {
                     ></Box>
                   </Link>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
@@ -91,7 +92,7 @@ const LastFiveDays = () => {
                     }}
                   ></Box>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
@@ -112,7 +113,7 @@ const LastFiveDays = () => {
                 rowGap={2}
               >
                 <Grid item>
-                  <Typography variant="h4" component="div">
+                  <Typography variant="h4" component="div" className="question">
                     Have you tested positive for COVID-19 in the last five days?
                   </Typography>
                 </Grid>

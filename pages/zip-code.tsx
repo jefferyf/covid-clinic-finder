@@ -59,6 +59,7 @@ const ZipCode = () => {
               }}
             >
               <Box
+                className="questionBox"
                 sx={{
                   margin: '2rem 0',
                   padding: '2rem',
@@ -73,7 +74,7 @@ const ZipCode = () => {
                   columnGap={1.5}
                   sx={{ flexGrow: 1 }}
                 >
-                  <Grid item xs={2}>
+                  <Grid className="progressBars" item xs={2}>
                     <Link href="/assessment">
                       <Box
                         sx={{
@@ -84,7 +85,7 @@ const ZipCode = () => {
                       ></Box>
                     </Link>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid className="progressBars" item xs={2}>
                     <Link href="/last-five-days">
                       <Box
                         sx={{
@@ -95,7 +96,7 @@ const ZipCode = () => {
                       ></Box>
                     </Link>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid className="progressBars" item xs={2}>
                     <Box
                       sx={{
                         borderRadius: '25px',
@@ -117,15 +118,23 @@ const ZipCode = () => {
                 >
                   <Grid item>
                     <Typography variant="h4" component="div">
-                      Please Enter your Zip Code.
+                      Awesome!
+                      <br /> You’re a candidate for FREE treatment.
+                    </Typography>
+                    <Typography variant="body1">
+                      Enter your zip code to find a treatment facility near you.
                     </Typography>
                   </Grid>
                   <Grid
                     item
-                    sx={{
-                      width: '60%',
-                      maxWidth: 'sm',
-                    }}
+                    sx={[
+                      {
+                        '@media (min-width: 0px) and (max-width: 415px)': {
+                          width: '100%',
+                        },
+                      },
+                      { width: '60%', maxWidth: 'sm' },
+                    ]}
                   >
                     <div>
                       <input

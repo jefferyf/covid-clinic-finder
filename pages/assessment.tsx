@@ -52,6 +52,7 @@ const Assessment = () => {
             }}
           >
             <Box
+              className="questionBox"
               sx={{
                 margin: '2rem 0',
                 padding: '2rem',
@@ -66,7 +67,7 @@ const Assessment = () => {
                 columnGap={1.5}
                 sx={{ flexGrow: 1 }}
               >
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
@@ -75,7 +76,7 @@ const Assessment = () => {
                     }}
                   ></Box>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
@@ -84,7 +85,7 @@ const Assessment = () => {
                     }}
                   ></Box>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
