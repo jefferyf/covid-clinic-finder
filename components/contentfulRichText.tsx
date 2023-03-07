@@ -4,14 +4,15 @@
 import React from 'react'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { BLOCKS, MARKS, INLINES, Inline } from '@contentful/rich-text-types'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
+import { GrDocumentDownload } from 'react-icons/gr'
 
 const defaultInline = (type, node) => {
   return `type: ${node.nodeType} id: ${node.data.target.sys.id}`
 }
 
 const Text = ({ children }) => (
-  <Typography variant="body2" style={{ whiteSpace: 'pre-line' }}>
+  <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
     {children}
   </Typography>
 )
@@ -52,6 +53,43 @@ const options = {
     ),
     [BLOCKS.HEADING_6]: (node, children) => <h6>{children}</h6>,
     [BLOCKS.EMBEDDED_ENTRY]: (node, children) => <div>{children}</div>,
+    [BLOCKS.EMBEDDED_ASSET]: (node) => {
+      const { title, description, file } = node.data.target.fields
+      const mimeType = file.contentType
+      const mimeGroup = mimeType.split('/')[0]
+
+      switch (mimeGroup) {
+        case 'image':
+          return (
+            <img
+              title={title ?? null}
+              alt={description ?? null}
+              src={file.url}
+            />
+          )
+        case 'application':
+          return (
+            <Button
+              startIcon={<GrDocumentDownload />}
+              variant="outline"
+              href={file.url}
+              target="_blank"
+              sx={{ border: '1px solid #402767', color: '#D0BCFF' }}
+            >
+              {title ? title : file.details.fileName}
+            </Button>
+          )
+        default:
+          return (
+            <span style={{ backgroundColor: 'red', color: 'white' }}>
+              {' '}
+              {mimeType} embedded asset{' '}
+            </span>
+          )
+      }
+
+      return <p>{mimeGroup}</p>
+    },
     [BLOCKS.UL_LIST]: (node, children) => <ul>{children}</ul>,
     [BLOCKS.OL_LIST]: (node, children) => <ol>{children}</ol>,
     [BLOCKS.LIST_ITEM]: (node, children) => <li>{children}</li>,

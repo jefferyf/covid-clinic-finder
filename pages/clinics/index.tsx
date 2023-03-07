@@ -71,163 +71,170 @@ const Clinics = ({ clinics, pageData }: IProps) => {
   return (
     <div className={'container'}>
       <Seo seoMetadata={pageData?.fields?.seoMetadata}></Seo>
-      <Grid
-        container
-        alignItems="start"
-        justifyContent="center"
-        style={{
-          minHeight: '75vh',
-          marginTop: '5rem',
-        }}
-      >
+      <main className="main">
         <Grid
-          item
-          sx={{
-            width: '100%',
-            maxWidth: 'sm',
-            backgroundColor: '#5E3D94',
-            borderRadius: '25px',
-            padding: '2rem',
-            margin: '0',
+          container
+          alignItems="start"
+          justifyContent="center"
+          style={{
+            minHeight: '75vh',
+            marginTop: '5rem',
           }}
         >
-          <Box width={'100%'}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              rowGap={4}
-            >
-              {notFound ? (
-                <Box>
-                  <Box sx={{ padding: '1rem 0' }}>
-                    <Typography variant="h3" component={'div'}>
-                      Thank You!
-                    </Typography>
-                    <Typography variant="body1">
-                      We were unable to find a clinic for this zip code.
-                      However, the options below will help you find treatment.
-                    </Typography>
-                    <Typography variant="body1">
-                      Find a Test-to-Treat location near you. These sites can
-                      prescribe COVID-19 medicines. To find a site, call the
-                      statewide COVID-19 hotline at 833-422-4255 or use the
-                      COVID-19{' '}
-                      <Link href="https://covid-19-test-to-treat-locator-dhhs.hub.arcgis.com/">
-                        Test to Treat Locator
-                      </Link>
-                      .
-                    </Typography>
-                    <Typography variant="body1">
-                      If you don&apos;t have insurance or the options above
-                      don&apos;t work, Call 833-686-5051 to make a phone or
-                      video appointment with California&apos;s free COVID-19
-                      provider
-                    </Typography>
-                  </Box>
-
-                  <Button
-                    variant="contained"
-                    className={'assessmentStart'}
-                    startIcon={<MdInfoOutline />}
-                    href="https://covid19.ca.gov/treatment/#how-to-find-treatment"
-                  >
-                    COVID-19 Treatment Options
-                  </Button>
-                </Box>
-              ) : (
-                <Grid item>
-                  {pageData ? (
-                    <Box className="clinicInstructions">
-                      <ContentfulRichText
-                        richText={pageData?.fields?.contentBlock}
-                      ></ContentfulRichText>
+          <Grid
+            item
+            sx={{
+              width: '100%',
+              maxWidth: 'sm',
+              backgroundColor: '#5E3D94',
+              borderRadius: '25px',
+              padding: '2rem',
+              margin: '0',
+            }}
+          >
+            <Box width={'100%'}>
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                rowGap={4}
+              >
+                {notFound ? (
+                  <Box>
+                    <Box sx={{ padding: '1rem 0' }}>
+                      <Typography variant="h3" component={'div'}>
+                        Thank You!
+                      </Typography>
+                      <Typography variant="body1">
+                        We were unable to find a clinic for this zip code.
+                        However, the options below will help you find treatment.
+                      </Typography>
+                      <Typography variant="body1">
+                        Find a Test-to-Treat location near you. These sites can
+                        prescribe COVID-19 medicines. To find a site, call the
+                        statewide COVID-19 hotline at 833-422-4255 or use the
+                        COVID-19{' '}
+                        <Link href="https://covid-19-test-to-treat-locator-dhhs.hub.arcgis.com/">
+                          Test to Treat Locator
+                        </Link>
+                        .
+                      </Typography>
+                      <Typography variant="body1">
+                        If you don&apos;t have insurance or the options above
+                        don&apos;t work, Call 833-686-5051 to make a phone or
+                        video appointment with California&apos;s free COVID-19
+                        provider
+                      </Typography>
                     </Box>
-                  ) : null}
-                  <ul
-                    style={{
-                      listStyleType: 'none',
-                      margin: '0',
-                      padding: '0',
-                      borderTop: '1px solid #B793F0',
-                    }}
-                  >
-                    {clinics.items
-                      .filter((item: Entry<IClinicFields>) => {
-                        return query.zipcode
-                          ? item.fields.zipCodes.includes(
-                              query.zipcode.toString()
-                            )
-                          : true
-                      })
-                      .map((item: Entry<IClinicFields>) => {
-                        return (
-                          <li
-                            key={item.sys.id}
-                            data-zipcodes={`['${item.fields.zipCodes.join(
-                              "','"
-                            )}']`}
-                            style={{
-                              borderBottom: '1px solid #B793F0',
-                              padding: '1.5rem 0',
-                            }}
-                          >
-                            <Grid container>
-                              <Grid item xs={8}>
-                                <p className="clinicName">
-                                  {item.fields.clinicName}
-                                </p>
-                              </Grid>
-                              <Grid item xs={4}>
-                                <span
-                                  className="clinicDistance"
-                                  style={{ float: 'right' }}
-                                >
-                                  {distance({
-                                    latitude: item?.fields?.clinicLocation?.lat,
-                                    longitude:
-                                      item?.fields?.clinicLocation?.lon,
-                                  })}
-                                </span>
-                              </Grid>
-                            </Grid>
 
-                            <Box sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}>
-                              <ContentfulRichText
-                                richText={item.fields.clinicAddressInformation}
-                              />
-                            </Box>
-                            <Button
-                              variant="outlined"
-                              size="small"
-                              className="clinicDetails"
-                              startIcon={<IoMdPin />}
-                              href={`/clinics/${item.fields.slug}`}
+                    <Button
+                      variant="contained"
+                      className={'assessmentStart'}
+                      startIcon={<MdInfoOutline />}
+                      href="https://covid19.ca.gov/treatment/#how-to-find-treatment"
+                    >
+                      COVID-19 Treatment Options
+                    </Button>
+                  </Box>
+                ) : (
+                  <Grid item>
+                    {pageData ? (
+                      <Box className="clinicInstructions">
+                        <ContentfulRichText
+                          richText={pageData?.fields?.contentBlock}
+                        ></ContentfulRichText>
+                      </Box>
+                    ) : null}
+                    <ul
+                      style={{
+                        listStyleType: 'none',
+                        margin: '0',
+                        padding: '0',
+                        borderTop: '1px solid #B793F0',
+                      }}
+                    >
+                      {clinics.items
+                        .filter((item: Entry<IClinicFields>) => {
+                          return query.zipcode
+                            ? item.fields.zipCodes.includes(
+                                query.zipcode.toString()
+                              )
+                            : true
+                        })
+                        .map((item: Entry<IClinicFields>) => {
+                          return (
+                            <li
+                              key={item.sys.id}
+                              data-zipcodes={`['${item.fields.zipCodes.join(
+                                "','"
+                              )}']`}
+                              style={{
+                                borderBottom: '1px solid #B793F0',
+                                padding: '1.5rem 0',
+                              }}
                             >
-                              Map
-                            </Button>
-                            {item.fields.phoneNumber ? (
+                              <Grid container>
+                                <Grid item xs={8}>
+                                  <p className="clinicName">
+                                    {item.fields.clinicName}
+                                  </p>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <span
+                                    className="clinicDistance"
+                                    style={{ float: 'right' }}
+                                  >
+                                    {distance({
+                                      latitude:
+                                        item?.fields?.clinicLocation?.lat,
+                                      longitude:
+                                        item?.fields?.clinicLocation?.lon,
+                                    })}
+                                  </span>
+                                </Grid>
+                              </Grid>
+
+                              <Box
+                                sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}
+                              >
+                                <ContentfulRichText
+                                  richText={
+                                    item.fields.clinicAddressInformation
+                                  }
+                                />
+                              </Box>
                               <Button
                                 variant="outlined"
                                 size="small"
                                 className="clinicDetails"
-                                sx={{ marginLeft: '0.75rem' }}
-                                startIcon={<ImMobile2 />}
+                                startIcon={<IoMdPin />}
+                                href={`/clinics/${item.fields.slug}`}
                               >
-                                {item.fields.phoneNumber}
+                                Map
                               </Button>
-                            ) : null}
-                          </li>
-                        )
-                      })}
-                  </ul>
-                </Grid>
-              )}
-            </Grid>
-          </Box>
+                              {item.fields.phoneNumber ? (
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  className="clinicDetails"
+                                  sx={{ marginLeft: '0.75rem' }}
+                                  startIcon={<ImMobile2 />}
+                                >
+                                  {item.fields.phoneNumber}
+                                </Button>
+                              ) : null}
+                            </li>
+                          )
+                        })}
+                    </ul>
+                  </Grid>
+                )}
+              </Grid>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      </main>
     </div>
   )
 }
