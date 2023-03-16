@@ -37,7 +37,7 @@ const Navbar = () => {
       const pages: EntryCollection<IGenericPageFields> =
         await client.getEntries({
           content_type: 'genericPage',
-          'fields.slug[ne]': 'clinics/index',
+          'fields.slug[nin]': 'clinics/index,privacy-policy',
         })
 
       setPages(pages)

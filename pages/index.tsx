@@ -83,7 +83,7 @@ export default function Home({ homePage }: { homePage: IHomePageFields }) {
                   {
                     margin: '2rem 0',
                     padding: '2rem',
-                    width: '325px',
+                    width: '375px',
                     textTransform: 'none',
                   },
                 ]}
@@ -99,7 +99,7 @@ export default function Home({ homePage }: { homePage: IHomePageFields }) {
                       margin: '3px',
                     }}
                   >
-                    See if you qualify
+                    Learn how to get them
                   </p>
                   <p
                     style={{

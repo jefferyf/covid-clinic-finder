@@ -118,11 +118,11 @@ const ZipCode = () => {
                 >
                   <Grid item>
                     <Typography variant="h4" component="div">
-                      Awesome!
-                      <br /> You’re a candidate for FREE treatment.
+                      You may be recommended to take COVID medication.
                     </Typography>
                     <Typography variant="body1">
-                      Enter your zip code to find a treatment facility near you.
+                      Enter your zip code to find an Indian Health Care Provider
+                      near you for FREE treatment.
                     </Typography>
                   </Grid>
                   <Grid
