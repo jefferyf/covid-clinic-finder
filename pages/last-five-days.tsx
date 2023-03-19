@@ -29,10 +29,10 @@ const LastFiveDays = () => {
     <div className={'container'}>
       <main className={'main'}>
         <Head>
-          <title>Covid-19 Assessment | Last five days</title>
+          <title>COVID-19 Assessment | Last five days</title>
           <meta
             name="description"
-            content="Covid-19 Assessment | Last five days"
+            content="COVID-19 Assessment | Last five days"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>

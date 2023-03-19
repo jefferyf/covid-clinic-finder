@@ -28,10 +28,10 @@ const Assessment = () => {
     <div className={'container'}>
       <main className="main">
         <Head>
-          <title>Covid-19 Assessment | Are you feeling sick?</title>
+          <title>COVID-19 Assessment | Are you feeling sick?</title>
           <meta
             name="description"
-            content="Covid-19 Assessment | Are you feeling sick?"
+            content="COVID-19 Assessment | Are you feeling sick?"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>

@@ -5,13 +5,20 @@ import { SearchContext } from '../context/searchContext'
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box'
 import Head from 'next/head'
-import { Button, Typography } from '@mui/material'
+import { Button } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Entry } from 'contentful'
+import { IFoundLocationCopyFields } from '../@types/generated/contentful'
+import { client } from '../lib/api'
+import ContentfulRichText from '../components/contentfulRichText'
 
 const ZipCode = () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { storedValue, setStoredValue } = React.useContext(SearchContext)
+  const [copy, setCopy] =
+    React.useState<IFoundLocationCopyFields['copy']>(undefined)
   const router = useRouter()
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -26,15 +33,39 @@ const ZipCode = () => {
     })
   }
 
+  React.useEffect(() => {
+    let id = '11pW3VGG0eF1SxjNXU3X09'
+    if (storedValue?.positive && storedValue?.fiveDays) {
+      id = '6XXxmOC6NAP2su4aM4PI8c'
+    } else if (storedValue?.positive || storedValue?.fiveDays) {
+      id = '6G0madQDwv8Gabk5Q1kMbe'
+    } else {
+      id = '11pW3VGG0eF1SxjNXU3X09'
+    }
+
+    // declare the async data fetching function
+    const fetchData = async () => {
+      const copyEntry: Entry<IFoundLocationCopyFields> = await client.getEntry(
+        id
+      )
+      setCopy(copyEntry?.fields?.copy)
+    }
+
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error)
+  }, [storedValue])
+
   return (
     <>
       <div className={'container'}>
         <main className={'main'}>
           <Head>
-            <title>Covid-19 Assessment | Last five days</title>
+            <title>COVID-19 Assessment | Last five days</title>
             <meta
               name="description"
-              content="Covid-19 Assessment | Last five days"
+              content="COVID-19 Assessment | Last five days"
             />
             <link rel="icon" href="/favicon.ico" />
           </Head>
@@ -117,13 +148,7 @@ const ZipCode = () => {
                   rowGap={4}
                 >
                   <Grid item>
-                    <Typography variant="h4" component="div">
-                      You may be recommended to take COVID medication.
-                    </Typography>
-                    <Typography variant="body1">
-                      Enter your zip code to find an Indian Health Care Provider
-                      near you for FREE treatment.
-                    </Typography>
+                    <ContentfulRichText richText={copy} />
                   </Grid>
                   <Grid
                     item

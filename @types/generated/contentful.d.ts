@@ -46,6 +46,31 @@ export interface IClinic extends Entry<IClinicFields> {
   }
 }
 
+export interface IFoundLocationCopyFields {
+  /** Title */
+  title?: string | undefined
+
+  /** Copy */
+  copy?: Document | undefined
+}
+
+export interface IFoundLocationCopy extends Entry<IFoundLocationCopyFields> {
+  sys: {
+    id: string
+    type: string
+    createdAt: string
+    updatedAt: string
+    locale: string
+    contentType: {
+      sys: {
+        id: 'foundLocationCopy'
+        linkType: 'ContentType'
+        type: 'Link'
+      }
+    }
+  }
+}
+
 export interface IGenericPageFields {
   /** Title */
   pageTitle: string
@@ -146,9 +171,19 @@ export interface ISeoMetaTags extends Entry<ISeoMetaTagsFields> {
   }
 }
 
-export type CONTENT_TYPE = 'clinic' | 'genericPage' | 'homePage' | 'seoMetaTags'
+export type CONTENT_TYPE =
+  | 'clinic'
+  | 'foundLocationCopy'
+  | 'genericPage'
+  | 'homePage'
+  | 'seoMetaTags'
 
-export type IEntry = IClinic | IGenericPage | IHomePage | ISeoMetaTags
+export type IEntry =
+  | IClinic
+  | IFoundLocationCopy
+  | IGenericPage
+  | IHomePage
+  | ISeoMetaTags
 
 export type LOCALE_CODE = 'en-US'
 

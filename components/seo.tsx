@@ -7,10 +7,10 @@ const Seo = ({ seoMetadata }: { seoMetadata: Entry<ISeoMetaTagsFields> }) => {
   const fields = seoMetadata?.fields ?? {}
   return (
     <Head>
-      <title>{fields?.seoTitle ?? 'Nuna Covid-19 Assessment'}</title>
+      <title>{fields?.seoTitle ?? 'COVID-19 Assessment'}</title>
       <meta
         name="description"
-        content={fields?.description ?? 'Nuna Covid-19 Assessment'}
+        content={fields?.description ?? 'COVID-19 Assessment'}
       />
       <link rel="icon" href="/favicon.ico" />
     </Head>

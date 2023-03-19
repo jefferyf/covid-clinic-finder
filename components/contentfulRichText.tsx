@@ -70,11 +70,16 @@ const options = {
         case 'application':
           return (
             <Button
-              startIcon={<GrDocumentDownload />}
+              startIcon={<GrDocumentDownload className="resourceIcon" />}
               variant="outline"
               href={file.url}
               target="_blank"
-              sx={{ border: '1px solid #402767', color: '#D0BCFF' }}
+              sx={{
+                ':hover': {
+                  color: 'white',
+                  textDecoration: 'underline',
+                },
+              }}
             >
               {title ? title : file.details.fileName}
             </Button>

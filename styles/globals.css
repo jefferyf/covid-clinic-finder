@@ -26,6 +26,10 @@ a {
   color: white;
 }
 
+.resourceIcon > path {
+  stroke: #e9da07;
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 5rem 2rem;
