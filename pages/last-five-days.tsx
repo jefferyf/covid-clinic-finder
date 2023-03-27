@@ -114,8 +114,7 @@ const LastFiveDays = () => {
               >
                 <Grid item>
                   <Typography variant="h4" component="div" className="question">
-                    Have you tested positive for COVID-19 in the last 5-7 days,
-                    or felt sick for less than 7 days?
+                    Did you start feeling sick less than 7 days ago?
                   </Typography>
                 </Grid>
                 <Grid item sx={{ paddingBottom: '4rem' }}>
