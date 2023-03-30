@@ -214,6 +214,7 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                                   className="clinicDetails"
                                   sx={{ marginLeft: '0.75rem' }}
                                   startIcon={<ImMobile2 />}
+                                  href={`tel:${item.fields.phoneNumber}`}
                                 >
                                   {item.fields.phoneNumber}
                                 </Button>
