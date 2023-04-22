@@ -15,7 +15,6 @@ import {
 } from '../../@types/generated/contentful'
 import { Entry, EntryCollection } from 'contentful'
 import { useRouter } from 'next/router'
-import { MdInfoOutline } from 'react-icons/md'
 
 interface IProps {
   clinics: EntryCollection<IClinicFields>
@@ -27,7 +26,7 @@ const Clinics = ({ clinics, pageData }: IProps) => {
   const { query } = router
   const [location, setLocation] = React.useState<GeolibInputCoordinates>()
   const [notFound, setNotFound] = React.useState(false)
-  const [copy, setCopy] =
+  const [, setCopy] =
     React.useState<IFoundLocationCopyFields['copy']>(undefined)
 
   React.useEffect(() => {
@@ -117,20 +116,110 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                 rowGap={4}
               >
                 {notFound ? (
-                  <Box>
-                    <Box sx={{ padding: '1rem 0' }}>
-                      <ContentfulRichText richText={copy} />
-                    </Box>
+                  <>
+                    <Grid item>
+                      <Box>
+                        {pageData ? (
+                          <Box className="clinicInstructions">
+                            <ContentfulRichText
+                              richText={pageData?.fields?.contentBlock}
+                            />
+                          </Box>
+                        ) : null}
+                      </Box>
+                    </Grid>
+                    <Grid item>
+                      <ul
+                        style={{
+                          listStyleType: 'none',
+                          margin: '0',
+                          padding: '0',
+                          borderTop: '1px solid #B793F0',
+                        }}
+                      >
+                        {clinics.items
+                          .sort((a, b) => {
+                            const distanceA =
+                              distance({
+                                latitude: a?.fields?.clinicLocation?.lat,
+                                longitude: a?.fields?.clinicLocation?.lon,
+                              }) ?? 0
+                            const distanceB =
+                              distance({
+                                latitude: b?.fields?.clinicLocation?.lat,
+                                longitude: b?.fields?.clinicLocation?.lon,
+                              }) ?? 0
+                            return distanceA > distanceB ? 1 : -1
+                          })
+                          .map((item: Entry<IClinicFields>) => {
+                            return (
+                              <li
+                                key={item.sys.id}
+                                data-zipcodes={`['${item.fields.zipCodes.join(
+                                  "','"
+                                )}']`}
+                                style={{
+                                  borderBottom: '1px solid #B793F0',
+                                  padding: '1.5rem 0',
+                                }}
+                              >
+                                <Grid container>
+                                  <Grid item xs={8}>
+                                    <p className="clinicName">
+                                      {item.fields.clinicName}
+                                    </p>
+                                  </Grid>
+                                  <Grid item xs={4}>
+                                    <span
+                                      className="clinicDistance"
+                                      style={{ float: 'right' }}
+                                    >
+                                      {distance({
+                                        latitude:
+                                          item?.fields?.clinicLocation?.lat,
+                                        longitude:
+                                          item?.fields?.clinicLocation?.lon,
+                                      })}
+                                    </span>
+                                  </Grid>
+                                </Grid>
 
-                    <Button
-                      variant="contained"
-                      className={'assessmentStart'}
-                      startIcon={<MdInfoOutline />}
-                      href="https://covid19.ca.gov/treatment/#how-to-find-treatment"
-                    >
-                      Learn More
-                    </Button>
-                  </Box>
+                                <Box
+                                  sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}
+                                >
+                                  <ContentfulRichText
+                                    richText={
+                                      item.fields.clinicAddressInformation
+                                    }
+                                  />
+                                </Box>
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  className="clinicDetails"
+                                  startIcon={<IoMdPin />}
+                                  href={`/clinics/${item.fields.slug}`}
+                                >
+                                  Map
+                                </Button>
+                                {item.fields.phoneNumber ? (
+                                  <Button
+                                    variant="outlined"
+                                    size="small"
+                                    className="clinicDetails"
+                                    sx={{ marginLeft: '0.75rem' }}
+                                    startIcon={<ImMobile2 />}
+                                    href={`tel:${item.fields.phoneNumber}`}
+                                  >
+                                    {item.fields.phoneNumber}
+                                  </Button>
+                                ) : null}
+                              </li>
+                            )
+                          })}
+                      </ul>
+                    </Grid>
+                  </>
                 ) : (
                   <Grid item>
                     {pageData ? (
@@ -155,6 +244,19 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                                 query.zipcode.toString()
                               )
                             : true
+                        })
+                        .sort((a, b) => {
+                          const distanceA =
+                            distance({
+                              latitude: a?.fields?.clinicLocation?.lat,
+                              longitude: a?.fields?.clinicLocation?.lon,
+                            }) ?? 0
+                          const distanceB =
+                            distance({
+                              latitude: b?.fields?.clinicLocation?.lat,
+                              longitude: b?.fields?.clinicLocation?.lon,
+                            }) ?? 0
+                          return distanceA > distanceB ? 1 : -1
                         })
                         .map((item: Entry<IClinicFields>) => {
                           return (
