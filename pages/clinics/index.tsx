@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import ContentfulRichText from '../../components/contentfulRichText'
 import Seo from '../../components/seo'
 import { client } from '../../lib/api'
@@ -29,6 +29,24 @@ const Clinics = ({ clinics, pageData }: IProps) => {
   const [notFound, setNotFound] = React.useState(false)
   const [copy, setCopy] =
     React.useState<IFoundLocationCopyFields['copy']>(undefined)
+  const [sortedClinics, setSortedClinics] = React.useState(clinics.items)
+
+  React.useEffect(() => {
+    const sClinics = clinics.items.sort((a, b) => {
+      const distanceA =
+        distance({
+          latitude: a?.fields?.clinicLocation?.lat,
+          longitude: a?.fields?.clinicLocation?.lon,
+        }) ?? 0
+      const distanceB =
+        distance({
+          latitude: b?.fields?.clinicLocation?.lat,
+          longitude: b?.fields?.clinicLocation?.lon,
+        }) ?? 0
+      return distanceA > distanceB ? 1 : -1
+    })
+    setSortedClinics(sClinics)
+  }, [])
 
   React.useEffect(() => {
     if ('geolocation' in navigator) {
@@ -116,7 +134,15 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                 alignItems="center"
                 rowGap={4}
               >
-                {notFound ? (
+                {!query.zipcode ? (
+                  <Typography
+                    variant="h4"
+                    component="div"
+                    sx={{ width: '100%' }}
+                  >
+                    Clinic Directory
+                  </Typography>
+                ) : notFound ? (
                   <Box>
                     <Box sx={{ padding: '1rem 0' }}>
                       <ContentfulRichText richText={copy} />
@@ -140,91 +166,88 @@ const Clinics = ({ clinics, pageData }: IProps) => {
                         />
                       </Box>
                     ) : null}
-                    <ul
-                      style={{
-                        listStyleType: 'none',
-                        margin: '0',
-                        padding: '0',
-                        borderTop: '1px solid #B793F0',
-                      }}
-                    >
-                      {clinics.items
-                        .filter((item: Entry<IClinicFields>) => {
-                          return query.zipcode
-                            ? item.fields.zipCodes.includes(
-                                query.zipcode.toString()
-                              )
-                            : true
-                        })
-                        .map((item: Entry<IClinicFields>) => {
-                          return (
-                            <li
-                              key={item.sys.id}
-                              data-zipcodes={`['${item.fields.zipCodes.join(
-                                "','"
-                              )}']`}
-                              style={{
-                                borderBottom: '1px solid #B793F0',
-                                padding: '1.5rem 0',
-                              }}
-                            >
-                              <Grid container>
-                                <Grid item xs={8}>
-                                  <p className="clinicName">
-                                    {item.fields.clinicName}
-                                  </p>
-                                </Grid>
-                                <Grid item xs={4}>
-                                  <span
-                                    className="clinicDistance"
-                                    style={{ float: 'right' }}
-                                  >
-                                    {distance({
-                                      latitude:
-                                        item?.fields?.clinicLocation?.lat,
-                                      longitude:
-                                        item?.fields?.clinicLocation?.lon,
-                                    })}
-                                  </span>
-                                </Grid>
+                  </Grid>
+                )}
+                <Grid item>
+                  <ul
+                    style={{
+                      listStyleType: 'none',
+                      margin: '0',
+                      padding: '0',
+                      borderTop: '1px solid #B793F0',
+                    }}
+                  >
+                    {sortedClinics
+                      .filter((item: Entry<IClinicFields>) => {
+                        return query.zipcode && !notFound
+                          ? item.fields.zipCodes.includes(
+                              query.zipcode.toString()
+                            )
+                          : true
+                      })
+                      .map((item: Entry<IClinicFields>) => {
+                        return (
+                          <li
+                            key={item.sys.id}
+                            data-zipcodes={`['${item.fields.zipCodes.join(
+                              "','"
+                            )}']`}
+                            style={{
+                              borderBottom: '1px solid #B793F0',
+                              padding: '1.5rem 0',
+                            }}
+                          >
+                            <Grid container>
+                              <Grid item xs={8}>
+                                <p className="clinicName">
+                                  {item.fields.clinicName}
+                                </p>
                               </Grid>
+                              <Grid item xs={4}>
+                                <span
+                                  className="clinicDistance"
+                                  style={{ float: 'right' }}
+                                >
+                                  {distance({
+                                    latitude: item?.fields?.clinicLocation?.lat,
+                                    longitude:
+                                      item?.fields?.clinicLocation?.lon,
+                                  })}
+                                </span>
+                              </Grid>
+                            </Grid>
 
-                              <Box
-                                sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}
-                              >
-                                <ContentfulRichText
-                                  richText={
-                                    item.fields.clinicAddressInformation
-                                  }
-                                />
-                              </Box>
+                            <Box sx={{ margin: '0.75rem 0', color: '#D0BCFF' }}>
+                              <ContentfulRichText
+                                richText={item.fields.clinicAddressInformation}
+                              />
+                            </Box>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              className="clinicDetails"
+                              startIcon={<IoMdPin />}
+                              href={`/clinics/${item.fields.slug}`}
+                            >
+                              Map
+                            </Button>
+                            {item.fields.phoneNumber ? (
                               <Button
                                 variant="outlined"
                                 size="small"
                                 className="clinicDetails"
-                                startIcon={<IoMdPin />}
-                                href={`/clinics/${item.fields.slug}`}
+                                sx={{ marginLeft: '0.75rem' }}
+                                startIcon={<ImMobile2 />}
+                                href={`tel:${item.fields.phoneNumber}`}
                               >
-                                Map
+                                {item.fields.phoneNumber}
                               </Button>
-                              {item.fields.phoneNumber ? (
-                                <Button
-                                  variant="outlined"
-                                  size="small"
-                                  className="clinicDetails"
-                                  sx={{ marginLeft: '0.75rem' }}
-                                  startIcon={<ImMobile2 />}
-                                  href={`tel:${item.fields.phoneNumber}`}
-                                >
-                                  {item.fields.phoneNumber}
-                                </Button>
-                              ) : null}
-                            </li>
-                          )
-                        })}
-                    </ul>
-                  </Grid>
-                )}
+                            ) : null}
+                          </li>
+                        )
+                      })}
+                  </ul>
+                </Grid>
               </Grid>
             </Box>
           </Grid>
