@@ -3,6 +3,7 @@ import React, { Dispatch, ReactNode, SetStateAction, useContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 interface ISearchState {
+  feelingSick?: boolean
   positive?: boolean
   fiveDays?: boolean
   zipCode?: string
@@ -15,6 +16,7 @@ interface IContextType {
 
 // initial state
 const defaultSearchState: ISearchState = {
+  feelingSick: undefined,
   positive: undefined,
   fiveDays: undefined,
   zipCode: '',

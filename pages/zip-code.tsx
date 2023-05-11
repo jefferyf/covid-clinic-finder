@@ -128,13 +128,15 @@ const ZipCode = () => {
                     </Link>
                   </Grid>
                   <Grid className="progressBars" item xs={2}>
-                    <Box
-                      sx={{
-                        borderRadius: '25px',
-                        backgroundColor: '#B793F0',
-                        height: '1rem',
-                      }}
-                    ></Box>
+                    <Link href="/positive-test">
+                      <Box
+                        sx={{
+                          borderRadius: '25px',
+                          backgroundColor: '#B793F0',
+                          height: '1rem',
+                        }}
+                      ></Box>
+                    </Link>
                   </Grid>
                 </Grid>
               </Box>

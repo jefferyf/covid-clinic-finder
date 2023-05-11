@@ -22,7 +22,7 @@ const LastFiveDays = () => {
       // @ts-ignore
       fiveDays: e.target.innerText === 'Yes',
     })
-    router.push('/zip-code')
+    router.push('/positive-test')
   }
 
   return (

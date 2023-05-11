@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { Button, Typography } from '@mui/material'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const Assessment = () => {
   // @ts-ignore
@@ -19,19 +20,21 @@ const Assessment = () => {
     setStoredValue({
       ...storedValue,
       // @ts-ignore
-      feelingSick: e.target.innerText === 'Yes',
+      positive: e.target.innerText === 'Yes',
     })
-    router.push('/last-five-days')
+    router.push('/zip-code')
   }
 
   return (
     <div className={'container'}>
       <main className="main">
         <Head>
-          <title>COVID-19 Assessment | Are you feeling sick?</title>
+          <title>
+            COVID-19 Assessment | Have you tested positive for COVID-19?
+          </title>
           <meta
             name="description"
-            content="COVID-19 Assessment | Are you feeling sick?"
+            content="COVID-19 Assessment | Have you tested positive for COVID-19?"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
@@ -68,28 +71,32 @@ const Assessment = () => {
                 sx={{ flexGrow: 1 }}
               >
                 <Grid className="progressBars" item xs={2}>
+                  <Link href="/assessment">
+                    <Box
+                      sx={{
+                        borderRadius: '25px',
+                        backgroundColor: '#B793F0',
+                        height: '1rem',
+                      }}
+                    ></Box>
+                  </Link>
+                </Grid>
+                <Grid className="progressBars" item xs={2}>
+                  <Link href="/last-five-days">
+                    <Box
+                      sx={{
+                        borderRadius: '25px',
+                        backgroundColor: '#B793F0',
+                        height: '1rem',
+                      }}
+                    ></Box>
+                  </Link>
+                </Grid>
+                <Grid className="progressBars" item xs={2}>
                   <Box
                     sx={{
                       borderRadius: '25px',
                       backgroundColor: '#B793F0',
-                      height: '1rem',
-                    }}
-                  ></Box>
-                </Grid>
-                <Grid className="progressBars" item xs={2}>
-                  <Box
-                    sx={{
-                      borderRadius: '25px',
-                      backgroundColor: '#765AA4',
-                      height: '1rem',
-                    }}
-                  ></Box>
-                </Grid>
-                <Grid className="progressBars" item xs={2}>
-                  <Box
-                    sx={{
-                      borderRadius: '25px',
-                      backgroundColor: '#765AA4',
                       height: '1rem',
                     }}
                   ></Box>
@@ -107,7 +114,7 @@ const Assessment = () => {
               >
                 <Grid item>
                   <Typography variant="h4" component="div">
-                    Are you feeling sick?
+                    Have you tested positive for COVID-19?
                   </Typography>
                 </Grid>
                 <Grid item sx={{ paddingBottom: '4rem' }}>
@@ -116,7 +123,7 @@ const Assessment = () => {
                     className={'assessmentStart'}
                     onClick={handleClick}
                     startIcon={
-                      storedValue?.feelingSick ? <AiOutlineCheck /> : null
+                      storedValue?.positive ? <AiOutlineCheck /> : null
                     }
                     size="large"
                     sx={{ marginRight: '10px' }}
@@ -128,7 +135,7 @@ const Assessment = () => {
                     onClick={handleClick}
                     className={'assessmentStart'}
                     startIcon={
-                      storedValue?.feelingSick === false ? (
+                      storedValue?.positive === false ? (
                         <AiOutlineCheck />
                       ) : null
                     }
