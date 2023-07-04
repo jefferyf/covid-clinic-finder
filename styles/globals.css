@@ -19,7 +19,7 @@ a {
 
 .container {
   padding: 6rem 4rem;
-  background-image: url('/patternBackground.png');
+  /* background-image: url('/patternBackground.png'); */
   background-repeat: repeat;
   /* background-size: cover; */
   background-color: #472b74;

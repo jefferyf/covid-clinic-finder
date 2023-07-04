@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
@@ -76,6 +77,29 @@ const Navbar = () => {
               }}
             >
               <img src="/Logo.png" alt="Test It logo" />
+            </Typography>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="https://www.cdph.ca.gov/"
+              target="_blank"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              <img
+                src="/LogoCDPH.png"
+                alt="Test It logo"
+                width="120px"
+                height="86px"
+              />
             </Typography>
           </Box>
 
